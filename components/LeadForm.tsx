@@ -1,11 +1,7 @@
 'use client';
+import { useFormState } from 'react-dom';
 import { Button } from './ui/button';
-import {
-  useForm,
-  SubmitHandler,
-  useFormState,
-  FieldValues,
-} from 'react-hook-form';
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 import getFormDataAction from '@/lib/actions';
 interface IFormData {
   firstName: string;
@@ -14,6 +10,7 @@ interface IFormData {
 }
 
 export default function LeadForm() {
+  const [state, action] = useFormState(getFormDataAction, { message: '' });
   const {
     register,
     handleSubmit,
@@ -28,8 +25,9 @@ export default function LeadForm() {
     //if validation ok - pass formData to server with action
     console.log('submittimg data from client');
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    getFormDataAction(data);
+    action(data);
     //TODO check validation from server
+
     reset();
   };
 
@@ -37,10 +35,13 @@ export default function LeadForm() {
 
   return (
     <form
-      action={getFormDataAction}
+      action={action}
       onSubmit={handleSubmit(onSubmit, onError)}
       className="flex flex-col justify-start items-start gap-y-3 py-3 bg-slate-200 mx-40 px-9"
     >
+      {state?.message && state?.message?.length > 0 && (
+        <p className="text-red-500">{state.message}</p>
+      )}
       <input
         type="text"
         placeholder="Name"
