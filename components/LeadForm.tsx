@@ -1,13 +1,10 @@
 'use client';
 import { useFormState } from 'react-dom';
 import { Button } from './ui/button';
-import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import getFormDataAction from '@/lib/actions';
-interface IFormData {
-  firstName: string;
-  password: string;
-  confirmPassword: string;
-}
+import { zodResolver } from '@hookform/resolvers/zod';
+import { TleadFormSchema, leadFormSchema } from '@/lib/types';
 
 export default function LeadForm() {
   const [state, action] = useFormState(getFormDataAction, { message: '' });
@@ -15,20 +12,19 @@ export default function LeadForm() {
     register,
     handleSubmit,
     reset,
-    getValues,
+    setError,
     formState: { errors, isSubmitting },
-  } = useForm<IFormData>();
+  } = useForm<TleadFormSchema>({
+    resolver: zodResolver(leadFormSchema),
+    defaultValues: { firstName: '', password: '', confirmPassword: '' },
+  });
 
-  const onSubmit = async (data: FieldValues) => {
-    //TODO validate with zod
-
+  const onSubmit = async (data: TleadFormSchema) => {
     //if validation ok - pass formData to server with action
-    console.log('submittimg data from client');
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    action(data);
+    console.log(await action(data));
     //TODO check validation from server
 
-    reset();
+    // reset();
   };
 
   const onError = (errors: any) => console.log(errors);
@@ -40,18 +36,20 @@ export default function LeadForm() {
       className="flex flex-col justify-start items-start gap-y-3 py-3 bg-slate-200 mx-40 px-9"
     >
       {state?.message && state?.message?.length > 0 && (
-        <p className="text-red-500">{state.message}</p>
+        <p
+          className={
+            state.message === 'Server success'
+              ? 'text-green-600'
+              : 'text-red-500'
+          }
+        >
+          {state.message}
+        </p>
       )}
       <input
         type="text"
         placeholder="Name"
-        {...register('firstName', {
-          required: 'this field is required',
-          pattern: {
-            value: /^[a-zA-Z\s]+$/,
-            message: 'Only letters allowed',
-          },
-        })}
+        {...register('firstName')}
         className="w-full px-4 py-2 rounded"
       />
       {errors.firstName && (
@@ -61,10 +59,7 @@ export default function LeadForm() {
       <input
         type="password"
         placeholder="Password"
-        {...register('password', {
-          required: 'this field is required',
-          minLength: { value: 5, message: 'min 5 symbols' },
-        })}
+        {...register('password')}
         className="w-full px-4 py-2 rounded"
       />
       {errors.password && (
@@ -73,11 +68,7 @@ export default function LeadForm() {
       <input
         type="password"
         placeholder="Confirm password"
-        {...register('confirmPassword', {
-          required: 'this field is required',
-          minLength: { value: 5, message: 'min 5 symbols' },
-          validate: (value) => value === getValues('password') || 'Must match',
-        })}
+        {...register('confirmPassword')}
         className="w-full px-4 py-2 rounded"
       />
       {errors.confirmPassword && (
