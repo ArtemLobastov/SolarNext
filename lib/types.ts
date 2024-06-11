@@ -1,22 +1,31 @@
 import { z } from 'zod';
-export const leadFormSchema = z
-  .object({
-    firstName: z
-      .string()
-      .min(3, 'name should be at lest 3 car')
-      .max(20, 'name can be 20 caracters max'),
-    password: z.string().min(5, 'password should be min 5 symbols').max(20),
-    confirmPassword: z
-      .string()
-      .min(5, 'password should be min 5 symbols')
-      .max(20),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Passwords do not match',
-    path: ['confirmPassword'],
-  });
+
+//lead form schema
+export const leadFormSchema = z.object({
+  firstName: z
+    .string()
+    .trim()
+    .min(3, 'First name must be at least 3 characters')
+    .max(20, 'First name must be 20 characters max')
+    .regex(/^[A-Za-zÀ-ÖØ-öø-ÿ'-]{1,50}$/, 'Invalid first name format'),
+  lastName: z
+    .string()
+    .trim()
+    .min(3, 'Last name must be at least 3 characters')
+    .max(20, 'Last name must be 20 characters max')
+    .regex(/^[A-Za-zÀ-ÖØ-öø-ÿ'-]{1,50}$/, 'Invalid last name format'),
+  email: z.string().email(),
+  phoneNumber: z
+    .string()
+    .regex(/^\+?[0-9\s\-().]{7,15}$/, 'Invalid phone Number Format'),
+});
 
 export type TleadFormSchema = z.infer<typeof leadFormSchema>;
-//pattern: {
-// value: /^[a-zA-Z\s]+$/,
-// message: 'Only letters allowed',
+
+//login schema
+export const loginSchema = z.object({
+  email: z.string().email('zod email err'),
+  password: z.string().min(5, 'Password must be at least 5 characters').max(20),
+});
+
+export type TloginSchema = z.infer<typeof loginSchema>;
