@@ -1,13 +1,15 @@
 'use server';
 
-import { leadFormSchema } from './types';
+import { leadFormSchema, TleadFormSchema } from './types';
+
 export interface ActionResult {
   message: string;
 }
 export default async function getFormDataAction(
-  prevState: any,
-  formData: any
+  prevState: ActionResult,
+  data: FormData
 ): Promise<ActionResult> {
+  const formData = Object.fromEntries(data);
   //validate data with zod
   const parsedResult = leadFormSchema.safeParse(formData);
   if (!parsedResult.success) {
@@ -15,7 +17,7 @@ export default async function getFormDataAction(
   }
   //Special server validation check
   if (parsedResult.data.firstName.includes('a')) {
-    return { message: 'Invalid name' };
+    return { message: 'Something went wrong. Try again later' };
   }
   // //TODO: if ok - save data to DB
 

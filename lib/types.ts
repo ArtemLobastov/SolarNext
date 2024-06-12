@@ -5,15 +5,15 @@ export const leadFormSchema = z.object({
   firstName: z
     .string()
     .trim()
-    .min(3, 'First name must be at least 3 characters')
-    .max(20, 'First name must be 20 characters max')
-    .regex(/^[A-Za-zÀ-ÖØ-öø-ÿ'-]{1,50}$/, 'Invalid first name format'),
+    .min(3, 'Must be at least 3 characters')
+    .max(20, 'Must be 20 characters max')
+    .regex(/^[A-Za-zÀ-ÖØ-öø-ÿ'-]{1,50}$/, 'Invalid format'),
   lastName: z
     .string()
     .trim()
-    .min(3, 'Last name must be at least 3 characters')
-    .max(20, 'Last name must be 20 characters max')
-    .regex(/^[A-Za-zÀ-ÖØ-öø-ÿ'-]{1,50}$/, 'Invalid last name format'),
+    .min(3, 'Must be at least 3 characters')
+    .max(20, 'Must be 20 characters max')
+    .regex(/^[A-Za-zÀ-ÖØ-öø-ÿ'-]{1,50}$/, 'Invalid format'),
   email: z.string().email(),
   phoneNumber: z
     .string()
