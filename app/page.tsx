@@ -1,6 +1,15 @@
 import { Button } from '@/components/ui/button';
 import HeaderMenu from '@/components/HeaderMenu';
 import Link from 'next/link';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import LeadFormDialog from '@/components/LeadFormDialog';
 export default function Home() {
   return (
     <>
@@ -12,7 +21,6 @@ export default function Home() {
           playsInline
           muted={true}
           loop={true}
-          preload="auto"
           className="w-full h-full object-cover opacity-75"
         >
           <source
@@ -32,9 +40,8 @@ export default function Home() {
               Zero electrical bills today
             </h2>
           </div>
-          <Button variant={'default'} size={'lg'} asChild>
-            <Link href="/lead-form">Get Quote</Link>
-          </Button>
+
+          <LeadFormDialog />
         </main>
       </div>
     </>

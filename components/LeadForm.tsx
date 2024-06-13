@@ -1,15 +1,13 @@
 'use client';
 import { useFormState } from 'react-dom';
-import { Button } from './ui/button';
 import { useForm } from 'react-hook-form';
 import getFormDataAction, { ActionResult } from '@/lib/actions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TleadFormSchema, leadFormSchema } from '@/lib/types';
-
+import { Loader2 } from 'lucide-react';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,10 +15,14 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { toast } from './ui/use-toast';
-import { useEffect, useRef } from 'react';
+import { useRef, useState } from 'react';
+import { Button } from './ui/button';
+import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function LeadForm() {
   const [state, action] = useFormState(getFormDataAction, { message: '' });
+  const [isPending, setIsPending] = useState(false);
   const form = useForm<TleadFormSchema>({
     resolver: zodResolver(leadFormSchema),
     defaultValues: {
@@ -30,116 +32,122 @@ export default function LeadForm() {
       email: '',
     },
   });
-  useEffect(() => {
-    if (state.message.length > 0) {
+  const formRef = useRef<HTMLFormElement>(null);
+  const onSubmit = async (data: TleadFormSchema) => {
+    setIsPending(true);
+    try {
+      const result: ActionResult = await getFormDataAction(
+        state,
+        new FormData(formRef.current!)
+      );
       if (
-        state.message ===
-        'Form succesfelly sent. We will get in touch with you soon!'
+        result.message ===
+        'Form successfully sent. We will get in touch with you soon!'
       ) {
         toast({
           title: 'Success',
           variant: 'success',
-          description: <p className="">{state.message}</p>,
+          description: result.message,
         });
         form.reset();
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       } else {
         toast({
           variant: 'destructive',
           title: 'Error',
-          description: <p className="">{state.message}</p>,
+          description: result.message,
         });
       }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Submission error',
+        description: 'An unexpected error occurred. Please try again later.',
+      });
+    } finally {
+      setIsPending(false);
     }
-
-    return () => {};
-  }, [state, form]);
-
-  const formRef = useRef<HTMLFormElement>(null);
+  };
+  const onError = (errors: any) => {
+    console.log(errors);
+    setIsPending(false);
+  };
 
   return (
-    <div className="bg-black px-5 py-5 flex items-center justify-center">
-      <Form {...form}>
-        <form
-          ref={formRef}
-          action={action}
-          onSubmit={(evt) => {
-            evt.preventDefault();
-            form.handleSubmit(() => {
-              action(new FormData(formRef.current!));
-            })(evt);
-          }}
-          className="w-2/3 space-y-3 px-10 py-10 bg-white rounded-md"
+    <Form {...form}>
+      <form
+        ref={formRef}
+        action={action}
+        onSubmit={form.handleSubmit(onSubmit, onError)}
+        className=" space-y-3"
+      >
+        <p>{state.message}</p>
+        <FormField
+          control={form.control}
+          name="firstName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>First Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Jhon" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="lastName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Last Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Doe" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="phoneNumber"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Phone Number</FormLabel>
+              <FormControl>
+                <Input type="number" placeholder="+35677767034" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input type="email" placeholder="example@mail.com" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <p className="text-xs">
+          By submitting this form, I agree to the Terms and Privacy Notice.
+        </p>
+        <Button
+          type="submit"
+          variant={'outline'}
+          className="px-12 py-2 w-1/3"
+          disabled={isPending}
         >
-          <FormField
-            control={form.control}
-            name="firstName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>First name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Jhon" {...field} />
-                </FormControl>
-                <FormDescription>Type your name</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="lastName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Last name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Doe" {...field} />
-                </FormControl>
-                <FormDescription>Type your last name</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="phoneNumber"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Phone number</FormLabel>
-                <FormControl>
-                  <Input type="number" placeholder="+35677767034" {...field} />
-                </FormControl>
-                <FormDescription>Your phone number</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input
-                    type="email"
-                    placeholder="example@mail.com"
-                    {...field}
-                  />
-                </FormControl>
-                <FormDescription>Your email address</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button
-            type="submit"
-            variant={'outline'}
-            className="px-10 py-2"
-            disabled={form.formState.isSubmitting}
-          >
-            Submit
-          </Button>
-        </form>
-      </Form>
-    </div>
+          {!isPending ? 'Submit' : <Loader2 className=" animate-spin" />}
+        </Button>
+      </form>
+    </Form>
   );
 }
