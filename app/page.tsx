@@ -1,14 +1,4 @@
-import { Button } from '@/components/ui/button';
 import HeaderMenu from '@/components/HeaderMenu';
-import Link from 'next/link';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
 import LeadFormDialog from '@/components/LeadFormDialog';
 export default function Home() {
   return (
@@ -24,7 +14,7 @@ export default function Home() {
           className="w-full h-full object-cover opacity-75"
         >
           <source
-            src="videos/solar-panels-hero-desktop.webm"
+            src="/videos/solar-panels-hero-desktop.webm"
             type="video/webm"
           />
           Tesla solar panels video
@@ -40,7 +30,6 @@ export default function Home() {
               Zero electrical bills today
             </h2>
           </div>
-
           <LeadFormDialog />
         </main>
       </div>
