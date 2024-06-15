@@ -1,16 +1,12 @@
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import Link from 'next/link';
+import LoginForm from '@/components/LoginForm';
 
 export default function AuthPage() {
   return (
-    <div className=" w-screen h-screen flex flex-col items-center justify-center">
-      <h1 className="text-xl">Login form</h1>
-      <Input type="text" placeholder="login" />
-      <Input type="password" placeholder="password" />
-      <Button variant={'outline'} size={'lg'} asChild>
-        <Link href="account/dashboard">Login</Link>
-      </Button>
+    <div className=" w-screen h-screen flex flex-col items-center justify-center bg-muted">
+      <div className="w-2/5 min-w-min flex flex-col gap-5 bg-card rounded-md p-10">
+        <h1 className="text-3xl">Sign in</h1>
+        <LoginForm />
+      </div>
     </div>
   );
 }

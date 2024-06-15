@@ -1,7 +1,7 @@
 'use client';
 import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
-import getFormDataAction, { ActionResult } from '@/lib/actions';
+import { getFormDataAction, ActionResult } from '@/lib/actions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TleadFormSchema, leadFormSchema } from '@/lib/types';
 import { Loader2 } from 'lucide-react';
