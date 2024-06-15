@@ -4,11 +4,11 @@ export default function AccountLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="flex flex-row w-screen h-screen">
-      <nav className="min-w-max">
+    <div className="flex flex-row w-full h-screen">
+      <nav className="min-w-max border-r-2 border-border	">
         <AccountNav />
       </nav>
-      <main className="">{children}</main>
+      <main className="grow">{children}</main>
     </div>
   );
 }
