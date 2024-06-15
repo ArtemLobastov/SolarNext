@@ -1,8 +1,7 @@
 'use client';
-
 import * as React from 'react';
 import Link from 'next/link';
-
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import {
   NavigationMenu,
@@ -14,7 +13,6 @@ import {
   navigationMenuTriggerStyle,
   navigationMenuTriggerStyleSecondary,
 } from '@/components/ui/navigation-menu';
-import Image from 'next/image';
 
 const services: { title: string; href: string; description: string }[] = [
   {
@@ -127,7 +125,7 @@ export default function HeaderMenu({ color }: props) {
         </NavigationMenuItem>
         {/* LOGIN */}
         <NavigationMenuItem>
-          <Link href="/account" legacyBehavior passHref>
+          <Link href="/auth" legacyBehavior passHref>
             <NavigationMenuLink
               className={
                 color === 'primary'

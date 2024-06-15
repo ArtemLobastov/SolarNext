@@ -17,8 +17,6 @@ import { Input } from '@/components/ui/input';
 import { toast } from './ui/use-toast';
 import { useRef, useState } from 'react';
 import { Button } from './ui/button';
-import { redirect } from 'next/navigation';
-import { useRouter } from 'next/navigation';
 
 export default function LeadForm() {
   const [state, action] = useFormState(getFormDataAction, { message: '' });
