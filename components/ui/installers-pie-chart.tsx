@@ -86,7 +86,7 @@ export default function InstallersPieChartVidget() {
   return (
     <Card
       className="
-     w-2/3 h-2/3 flex flex-col items-start justify-normal"
+     w-[600px] h-[500px] flex flex-col items-start justify-normal"
     >
       <CardHeader>
         <CardTitle>Installers</CardTitle>

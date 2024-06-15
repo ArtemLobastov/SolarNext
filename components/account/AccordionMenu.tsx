@@ -17,7 +17,7 @@ import Link from 'next/link';
 export default function AccordionMenu() {
   return (
     <>
-      <Accordion type="single" collapsible className="w-full grow">
+      <Accordion type="single" collapsible className="w-full ">
         <AccordionItem value="item-0">
           <div className="flex gap-2 items-center">
             <MdOutlineSpaceDashboard />
