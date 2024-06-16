@@ -249,7 +249,7 @@ export default function SalesLineChart() {
      w-full h-[500px] flex flex-col items-start justify-normal"
     >
       <CardHeader>
-        <CardTitle>Sales</CardTitle>
+        <CardTitle>Salesman perfomance</CardTitle>
         <CardDescription>Annually analytics</CardDescription>
       </CardHeader>
       <CardContent className="w-full h-full grow ">

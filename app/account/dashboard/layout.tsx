@@ -1,5 +1,4 @@
 import AccountNav from '@/components/account/AccountNav';
-import { ModeToggle } from '@/components/ui/darkmode-btn';
 
 export default function AccountLayout({
   children,

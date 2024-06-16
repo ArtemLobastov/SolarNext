@@ -12,7 +12,7 @@ const MyResponsivePie = (props: any) => {
   return (
     <ResponsivePie
       data={props.data}
-      margin={{ top: 20, right: 0, bottom: 30, left: 0 }}
+      margin={{ top: 20, right: 50, bottom: 30, left: 50 }}
       innerRadius={0.5}
       sortByValue={true}
       padAngle={0.7}
@@ -39,16 +39,16 @@ const MyResponsivePie = (props: any) => {
       }}
       legends={[
         {
-          anchor: 'top-left',
-          direction: 'column',
+          anchor: 'bottom',
+          direction: 'row',
           justify: false,
           translateX: 0,
           translateY: 0,
-          itemWidth: 100,
+          itemWidth: 50,
           itemHeight: 20,
-          itemsSpacing: 5,
+          itemsSpacing: 0,
           symbolSize: 20,
-          itemDirection: 'left-to-right',
+          itemDirection: 'top-to-bottom',
         },
       ]}
     />
@@ -58,8 +58,8 @@ const MyResponsivePie = (props: any) => {
 export default function InstallersPieChartVidget() {
   const data = [
     {
-      id: 'Artem and Nikita',
-      label: 'Artem and Nikita',
+      id: 'Artem',
+      label: 'Artem',
       value: 25,
     },
     {
@@ -86,7 +86,7 @@ export default function InstallersPieChartVidget() {
   return (
     <Card
       className="
-     w-[600px] h-[500px] flex flex-col items-start justify-normal"
+     w-full h-full flex flex-col items-start justify-normal"
     >
       <CardHeader>
         <CardTitle>Installers</CardTitle>
