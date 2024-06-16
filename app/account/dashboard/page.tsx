@@ -1,4 +1,4 @@
-import { BreadcrumbDemo } from '@/components/account/BreadCrumbs';
+import { BreadcrumbAccount } from '@/components/account/BreadCrumbs';
 import { DataTableStock } from '@/components/account/DataTableStock';
 import RecentPayments from '@/components/account/RecentPayments';
 import RevenueCard from '@/components/account/RevenueCard';
@@ -10,10 +10,10 @@ import SalesLineChart from '@/components/ui/sales-line-chart';
 
 export default function DashboardPage() {
   return (
-    <div className="h-full bg-primary-foreground p-5 ">
+    <>
       <div className="flex justify-between items-center ">
         <h1 className="text-5xl font-semibold">Dashboard</h1>
-        <BreadcrumbDemo />
+        <BreadcrumbAccount way={['Dashboard']} />
         <ModeToggle />
       </div>
 
@@ -38,6 +38,6 @@ export default function DashboardPage() {
 
         <SalesLineChart />
       </main>
-    </div>
+    </>
   );
 }

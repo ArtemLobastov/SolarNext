@@ -51,10 +51,21 @@ export default function AccordionMenu() {
             </div>
           </AccordionTrigger>
           <AccordionContent>
-            <ul>
-              <li>Add client</li>
-              <li>Manage clients</li>
-            </ul>
+            <div className=" grid items-center">
+              <Link
+                href={'/account/dashboard/clients/new'}
+                className=" py-3 font-medium hover:underline "
+              >
+                Add client
+              </Link>
+
+              <Link
+                href={'/account/dashboard/clients'}
+                className=" py-3 font-medium hover:underline"
+              >
+                Manage clients
+              </Link>
+            </div>
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-3">
