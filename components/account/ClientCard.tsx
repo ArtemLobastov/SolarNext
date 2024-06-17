@@ -26,6 +26,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import { Separator } from '@/components/ui/separator';
+import NotesTextArea from './NotesTextArea';
 
 export default function ClientCard() {
   return (
@@ -62,192 +63,126 @@ export default function ClientCard() {
             <DropdownMenuContent align="end">
               <DropdownMenuItem>Export</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Delite</DropdownMenuItem>
+              <DropdownMenuItem>Delete</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
       </CardHeader>
-      <CardContent className="p-6 text-sm">
+      <CardContent className=" p-3 grid grid-cols-3 gap-3  ">
         {/* PERSONAL DATA */}
-        <div className="grid gap-1">
-          <div className=" text-lg font-semibold">Personal Information</div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div className="grid gap-1">
-              <div className="font-semibold">Name</div>
-              <div className="grid gap-0.5 not-italic text-muted-foreground">
-                <p>Abner Grech</p>
+        <Card>
+          <CardHeader>
+            <CardTitle>Personal Information</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-1">
+                <div className="font-semibold">Name</div>
+                <div className="grid gap-0.5 not-italic text-muted-foreground">
+                  <p>Abner Grech</p>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="grid gap-1">
-              <div className="font-semibold">ID</div>
-              <div className="grid gap-0.5 not-italic text-muted-foreground">
-                <p>PV12345</p>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-1">
+                <div className="font-semibold">ID</div>
+                <div className="grid gap-0.5 not-italic text-muted-foreground">
+                  <p>PV12345</p>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="grid gap-1">
-              <div className="font-semibold">Date registered</div>
-              <div className="grid gap-0.5 not-italic text-muted-foreground">
-                <p>03.05.2024</p>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-1">
+                <div className="font-semibold">Date registered</div>
+                <div className="grid gap-0.5 not-italic text-muted-foreground">
+                  <p>03.05.2024</p>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="grid gap-1">
-              <div className="font-semibold">Email</div>
-              <div className="grid gap-0.5 not-italic text-muted-foreground">
-                <a href="mailto:">abnergrech@gmail.com</a>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-1">
+                <div className="font-semibold">Email</div>
+                <div className="grid gap-0.5 not-italic text-muted-foreground">
+                  <a href="mailto:">abnergrech@gmail.com</a>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="grid gap-1">
-              <div className="font-semibold">Phone</div>
-              <div className="grid gap-0.5 not-italic text-muted-foreground">
-                <a href="tel:">+356 777 67 034</a>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-1">
+                <div className="font-semibold">Phone</div>
+                <div className="grid gap-0.5 not-italic text-muted-foreground">
+                  <a href="tel:">+356 777 67 034</a>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="grid gap-1">
-              <div className="font-semibold">Address</div>
-              <address className="grid gap-0.5 not-italic text-muted-foreground">
-                <span>Triq il-Kbira 131</span>
-                <span>Qormi, Malta QRM1403</span>
-              </address>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-1">
+                <div className="font-semibold">Address</div>
+                <address className="grid gap-0.5 not-italic text-muted-foreground">
+                  <span>Triq il-Kbira 131</span>
+                  <span>Qormi, Malta QRM1403</span>
+                </address>
+              </div>
             </div>
-          </div>
-        </div>
-        <Separator className="my-4" />
-
+          </CardContent>
+        </Card>
         {/* System info */}
-        <div className="grid gap-3">
-          <div className=" text-lg font-semibold">System Details</div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div className="grid gap-1">
-              <div>
-                <div className="font-semibold">Type</div>
-                <div className="grid gap-0.5 not-italic text-muted-foreground">
-                  <span>New installation</span>
-                </div>
-              </div>
-              <div>
-                <div className="font-semibold">Panels</div>
-                <div className="grid gap-0.5 not-italic text-muted-foreground">
-                  <span>10 x Omnis 445w</span>
-                </div>
-              </div>
-              <div>
-                <div className="font-semibold">Inverter</div>
-                <div className="grid gap-0.5 not-italic text-muted-foreground">
-                  <span>SolarEdge SE3680H</span>
-                </div>
-              </div>
-              <div>
-                <div className="font-semibold">Batteries</div>
-                <div className="grid gap-0.5 not-italic text-muted-foreground">
-                  <span>SolarEdge 10kw Single Phase</span>
-                </div>
-              </div>
-              <div>
-                <div className="font-semibold">Backup</div>
-                <div className="grid gap-0.5 not-italic text-muted-foreground">
-                  <span>No</span>
-                </div>
-              </div>
-              <div>
-                <div className="font-semibold">Frame elevation</div>
-                <div className="grid gap-0.5 not-italic text-muted-foreground">
-                  <span>No</span>
-                </div>
-              </div>
-              <div>
-                <div className="font-semibold">Frame fixing type</div>
-                <div className="grid gap-0.5 not-italic text-muted-foreground">
-                  <span>On balasts (kurduni x24)</span>
-                </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>System Details</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div>
+              <div className="font-semibold">Type</div>
+              <div className="grid gap-0.5 not-italic text-muted-foreground">
+                <span>New installation</span>
               </div>
             </div>
-          </div>
-        </div>
-        {/* Grant Status */}
-        <Separator className="my-4" />
-        <div className="grid grid-cols-2 gap-4">
-          <div className="grid gap-3">
-            <div className="text-lg font-semibold">Grant</div>
-            <address className="grid gap-0.5 not-italic text-muted-foreground">
-              <span>Status: Approved</span>
-              <span>Part B upload</span>
-            </address>
-          </div>
-          <div className="grid auto-rows-max gap-3">
-            <div className="font-semibold">Bank Information</div>
-            <div className="text-muted-foreground">
-              <p>IBAN: </p>
-              <p>Account holders name:</p>
+            <div>
+              <div className="font-semibold">Panels</div>
+              <div className="grid gap-0.5 not-italic text-muted-foreground">
+                <span>10 x Omnis 445w</span>
+              </div>
             </div>
-          </div>
-        </div>
-        {/* Payments */}
-        <Separator className="my-4" />
-        <div className="grid gap-3">
-          <div className=" text-lg font-semibold">Payment Information</div>
-          <dl className="grid gap-3">
-            <div className="flex items-center justify-between">
-              <dt className="flex items-center gap-1 text-muted-foreground">
-                <CreditCard className="h-4 w-4" />
-                Visa
-              </dt>
-              <dd>**** **** **** 4532</dd>
+            <div>
+              <div className="font-semibold">Inverter</div>
+              <div className="grid gap-0.5 not-italic text-muted-foreground">
+                <span>SolarEdge SE3680H</span>
+              </div>
             </div>
-          </dl>
-          <ul className="grid gap-3">
-            <li className="flex items-center justify-between">
-              <span className="text-muted-foreground">
-                Glimmer Lamps x <span>2</span>
-              </span>
-              <span>$250.00</span>
-            </li>
-            <li className="flex items-center justify-between">
-              <span className="text-muted-foreground">
-                Aqua Filters x <span>1</span>
-              </span>
-              <span>$49.00</span>
-            </li>
-          </ul>
-          <Separator className="my-2" />
-          <ul className="grid gap-3">
-            <li className="flex items-center justify-between">
-              <span className="text-muted-foreground">Subtotal</span>
-              <span>$299.00</span>
-            </li>
-            <li className="flex items-center justify-between">
-              <span className="text-muted-foreground">Shipping</span>
-              <span>$5.00</span>
-            </li>
-            <li className="flex items-center justify-between">
-              <span className="text-muted-foreground">Tax</span>
-              <span>$25.00</span>
-            </li>
-            <li className="flex items-center justify-between font-semibold">
-              <span className="text-muted-foreground">Total</span>
-              <span>$329.00</span>
-            </li>
-          </ul>
-        </div>
-        <Separator className="my-4" />
+            <div>
+              <div className="font-semibold">Batteries</div>
+              <div className="grid gap-0.5 not-italic text-muted-foreground">
+                <span>SolarEdge 10kw Single Phase</span>
+              </div>
+            </div>
+            <div>
+              <div className="font-semibold">Backup</div>
+              <div className="grid gap-0.5 not-italic text-muted-foreground">
+                <span>No</span>
+              </div>
+            </div>
+            <div>
+              <div className="font-semibold">Frame elevation</div>
+              <div className="grid gap-0.5 not-italic text-muted-foreground">
+                <span>No</span>
+              </div>
+            </div>
+            <div>
+              <div className="font-semibold">Frame fixing type</div>
+              <div className="grid gap-0.5 not-italic text-muted-foreground">
+                <span>On ballasts (kurduni x24)</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* installations */}
-        <div className="grid grid-cols-2 gap-4">
-          <div className="grid gap-3">
-            <div className="text-lg font-semibold">
-              Installation Information
-            </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Installation Information</CardTitle>
+          </CardHeader>
+          <CardContent>
             <div>
               <div className="font-semibold">Notes</div>
               <div className="grid gap-0.5 not-italic text-muted-foreground">
@@ -265,27 +200,134 @@ export default function ClientCard() {
                   </span>
                 </Button>
               </div>
+              <div>
+                <div className="font-semibold">Delivery status</div>
+                <div className="grid gap-0.5 not-italic text-muted-foreground">
+                  <span>Done</span>
+                </div>
+              </div>
+              <div>
+                <div className="font-semibold">Delivery date</div>
+                <div className="grid gap-0.5 not-italic text-muted-foreground">
+                  <span>01.06.2024</span>
+                </div>
+              </div>
+              <div>
+                <div className="font-semibold">Installation status</div>
+                <div className="grid gap-0.5 not-italic text-muted-foreground">
+                  <span>Scheduled</span>
+                </div>
+              </div>
+              <div>
+                <div className="font-semibold">Installation date</div>
+                <div className="grid gap-0.5 not-italic text-muted-foreground">
+                  <span>14.06.2024</span>
+                </div>
+              </div>
+              <div>
+                <div className="font-semibold">Installer</div>
+                <div className="grid gap-0.5 not-italic text-muted-foreground">
+                  <span>Artem</span>
+                </div>
+              </div>
+              <div>
+                <div className="font-semibold">Certification status</div>
+                <div className="grid gap-0.5 not-italic text-muted-foreground">
+                  <span>pending</span>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <Separator className="my-4" />
+          </CardContent>
+        </Card>
+
+        {/* Payments */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Payment Information</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div>
+              <div className="font-semibold">Agent</div>
+              <div className="grid gap-0.5 not-italic text-muted-foreground">
+                <span>Adrian</span>
+              </div>
+            </div>
+            <div>
+              <div className="font-semibold">Balance</div>
+              <div className="grid gap-0.5 not-italic text-muted-foreground">
+                <ul className="grid gap-3">
+                  <li className="flex items-center justify-between">
+                    <span className="text-muted-foreground">Total</span>
+                    <span>€13050.00</span>
+                  </li>
+                  <li className="flex items-center justify-between">
+                    <span className="text-muted-foreground">Paid</span>
+                    <span>€5000.00</span>
+                  </li>
+                  <li className="flex items-center justify-between">
+                    <span className="text-muted-foreground">
+                      Remaining Balance
+                    </span>
+                    <span>€8050.00</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Grant Status */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Grant Status</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div>
+              <div className="font-semibold">Status</div>
+              <div className="grid gap-0.5 not-italic text-muted-foreground">
+                <span>Approved</span>
+              </div>
+            </div>
+            <div>
+              <div className="font-semibold">Grant deadline</div>
+              <div className="grid gap-0.5 not-italic text-muted-foreground">
+                <span>30.07.2024</span>
+              </div>
+            </div>
+            <div>
+              <div className="font-semibold">Part B upload</div>
+              <div className="grid gap-0.5 not-italic text-muted-foreground">
+                <span>Yes</span>
+              </div>
+            </div>
+            <div>
+              <div className="font-semibold">Bank Information</div>
+              <div className="grid gap-0.5 not-italic text-muted-foreground">
+                <div className="text-muted-foreground">
+                  <p>IBAN: </p>
+                  <p>Account holders name:</p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* NOTES */}
-        <div className="grid gap-3">
-          <div className="text-lg font-semibold">Notes</div>
-          <dl className="grid gap-3">
-            <div className="flex items-center justify-between">
-              <dt className="flex items-center gap-1 text-muted-foreground">
-                <CreditCard className="h-4 w-4" />
-                Visa
-              </dt>
-              <dd>**** **** **** 4532</dd>
+        <Card>
+          <CardHeader>
+            <CardTitle>Notes</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-3">
+              <div className="text-lg font-semibold">Notes</div>
+              <NotesTextArea />
             </div>
-          </dl>
-        </div>
+          </CardContent>
+        </Card>
       </CardContent>
       <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
         <div className="text-xs text-muted-foreground">
-          Updated <time dateTime="2023-11-23">November 23, 2023</time>
+          Updated <time dateTime="2023-11-23">June 23, 2024</time>
         </div>
       </CardFooter>
     </Card>
