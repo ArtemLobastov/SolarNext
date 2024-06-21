@@ -1,9 +1,15 @@
+'use client';
 import { BreadcrumbAccount } from '@/components/account/BreadCrumbs';
 import ClientCard from '@/components/account/ClientCard';
 import ClientList from '@/components/account/ClientList';
 import { ModeToggle } from '@/components/ui/darkmode-btn';
+import { useState } from 'react';
+import { data } from '@/lib/clientsDB';
 
 export default function ClientsPage() {
+  const [activeClientId, setActiveClientId] = useState<string>('');
+  const [activeClient] = data.filter((client) => client?.id === activeClientId);
+
   return (
     <>
       <div className="flex justify-between items-center ">
@@ -13,8 +19,8 @@ export default function ClientsPage() {
       </div>
 
       <main className=" pt-3">
-        <ClientCard />
-        <ClientList />
+        {activeClient && <ClientCard activeClient={activeClient} />}
+        <ClientList setActiveClientId={setActiveClientId} />
       </main>
     </>
   );

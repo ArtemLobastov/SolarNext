@@ -1,12 +1,4 @@
-import {
-  ChevronLeft,
-  ChevronRight,
-  Copy,
-  CreditCard,
-  MoreVertical,
-  Edit,
-  Download,
-} from 'lucide-react';
+import { Copy, MoreVertical, Edit, Download } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -25,16 +17,15 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-import { Separator } from '@/components/ui/separator';
 import NotesTextArea from './NotesTextArea';
-
-export default function ClientCard() {
+import { Client } from '@/lib/clientsDB';
+export default function ClientCard({ activeClient }: { activeClient: Client }) {
   return (
     <Card className="overflow-hidden">
       <CardHeader className="flex flex-row items-start bg-muted/50">
         <div className="grid gap-0.5">
           <CardTitle className="group flex items-center gap-2 text-2xl">
-            Abner Grech
+            {activeClient?.name}
             <Button
               size="icon"
               variant="outline"
@@ -318,7 +309,6 @@ export default function ClientCard() {
           </CardHeader>
           <CardContent>
             <div className="grid gap-3">
-              <div className="text-lg font-semibold">Notes</div>
               <NotesTextArea />
             </div>
           </CardContent>
