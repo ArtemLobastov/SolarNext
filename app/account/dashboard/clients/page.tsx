@@ -1,4 +1,5 @@
 import { BreadcrumbAccount } from '@/components/account/BreadCrumbs';
+import ClientCard from '@/components/account/ClientCard';
 import ClientList from '@/components/account/ClientList';
 import { ModeToggle } from '@/components/ui/darkmode-btn';
 
@@ -12,6 +13,7 @@ export default function ClientsPage() {
       </div>
 
       <main className=" pt-3">
+        <ClientCard />
         <ClientList />
       </main>
     </>

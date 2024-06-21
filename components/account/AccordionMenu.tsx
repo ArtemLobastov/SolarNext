@@ -54,14 +54,14 @@ export default function AccordionMenu() {
             <div className=" grid items-center">
               <Link
                 href={'/account/dashboard/clients/new'}
-                className=" py-3 font-medium hover:underline "
+                className=" py-3  hover:underline "
               >
                 Add client
               </Link>
 
               <Link
                 href={'/account/dashboard/clients'}
-                className=" py-3 font-medium hover:underline"
+                className=" py-3  hover:underline"
               >
                 Manage clients
               </Link>

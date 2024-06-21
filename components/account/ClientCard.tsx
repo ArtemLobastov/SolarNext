@@ -68,7 +68,7 @@ export default function ClientCard() {
           </DropdownMenu>
         </div>
       </CardHeader>
-      <CardContent className=" p-3 grid grid-cols-3 gap-3  ">
+      <CardContent className="text-sm p-3 grid grid-cols-3 gap-3  ">
         {/* PERSONAL DATA */}
         <Card>
           <CardHeader>
@@ -119,8 +119,7 @@ export default function ClientCard() {
               <div className="grid gap-1">
                 <div className="font-semibold">Address</div>
                 <address className="grid gap-0.5 not-italic text-muted-foreground">
-                  <span>Triq il-Kbira 131</span>
-                  <span>Qormi, Malta QRM1403</span>
+                  <span>131 Triq il-Kbira Qormi, Malta QRM1403</span>
                 </address>
               </div>
             </div>
