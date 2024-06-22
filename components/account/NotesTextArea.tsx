@@ -1,10 +1,16 @@
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-
-export default function NotesTextArea() {
+type Props = {
+  notes: string[];
+};
+export default function NotesTextArea({ notes }: Props) {
   return (
     <div className="grid w-full gap-2">
-      <p>Contact person - Patrick. Phone 742692</p>
+      <ul>
+        {notes.map((note) => (
+          <li key={note}>{note}</li>
+        ))}
+      </ul>
       <Textarea placeholder="Type your message here." />
       <Button variant={'outline'}>Add note</Button>
     </div>

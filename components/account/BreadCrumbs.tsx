@@ -14,14 +14,14 @@ export function BreadcrumbAccount({ way }: Props) {
     <Breadcrumb>
       <BreadcrumbList>
         {way.map((item) => (
-          <>
-            <BreadcrumbItem key={item}>
+          <div key={item} className="flex flex-row items-center gap-3">
+            <BreadcrumbItem>
               <BreadcrumbLink href={`/account/${item.toLowerCase()}`}>
                 {item}
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
-          </>
+          </div>
         ))}
       </BreadcrumbList>
     </Breadcrumb>

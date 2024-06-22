@@ -2,13 +2,16 @@
 import { BreadcrumbAccount } from '@/components/account/BreadCrumbs';
 import ClientCard from '@/components/account/ClientCard';
 import ClientList from '@/components/account/ClientList';
+
 import { ModeToggle } from '@/components/ui/darkmode-btn';
 import { useState } from 'react';
-import { data } from '@/lib/clientsDB';
+import { testClientListData } from '@/lib/clientsDB';
 
 export default function ClientsPage() {
   const [activeClientId, setActiveClientId] = useState<string>('');
-  const [activeClient] = data.filter((client) => client?.id === activeClientId);
+  const [activeClient] = testClientListData.filter(
+    (client) => client[0].id === activeClientId
+  );
 
   return (
     <>

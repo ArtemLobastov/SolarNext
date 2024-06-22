@@ -18,24 +18,26 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import NotesTextArea from './NotesTextArea';
-import { Client } from '@/lib/clientsDB';
-export default function ClientCard({ activeClient }: { activeClient: Client }) {
+import { TClient } from '@/lib/clientsDB';
+import { Separator } from '../ui/separator';
+export default function ClientCard({
+  activeClient,
+}: {
+  activeClient: TClient;
+}) {
+  const allPaymentsAmount = activeClient[3].paid.reduce(
+    (sum, payment) => sum + payment.amount,
+    0
+  );
+  const remainingBalance = activeClient[3].balanceTotal - allPaymentsAmount;
   return (
     <Card className="overflow-hidden">
       <CardHeader className="flex flex-row items-start bg-muted/50">
         <div className="grid gap-0.5">
           <CardTitle className="group flex items-center gap-2 text-2xl">
-            {activeClient?.name}
-            <Button
-              size="icon"
-              variant="outline"
-              className="h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100"
-            >
-              <Copy className="h-3 w-3" />
-              <span className="sr-only">Copy address</span>
-            </Button>
+            {activeClient[0].name}
           </CardTitle>
-          <CardDescription>PV12345</CardDescription>
+          <CardDescription>{activeClient[0].id}</CardDescription>
         </div>
         <div className="ml-auto flex items-center gap-1">
           <Button size="sm" variant="outline" className="h-8 gap-1">
@@ -63,14 +65,14 @@ export default function ClientCard({ activeClient }: { activeClient: Client }) {
         {/* PERSONAL DATA */}
         <Card>
           <CardHeader>
-            <CardTitle>Personal Information</CardTitle>
+            <CardTitle>Personal</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-1">
                 <div className="font-semibold">Name</div>
                 <div className="grid gap-0.5 not-italic text-muted-foreground">
-                  <p>Abner Grech</p>
+                  {activeClient[0].name}
                 </div>
               </div>
             </div>
@@ -78,7 +80,7 @@ export default function ClientCard({ activeClient }: { activeClient: Client }) {
               <div className="grid gap-1">
                 <div className="font-semibold">ID</div>
                 <div className="grid gap-0.5 not-italic text-muted-foreground">
-                  <p>PV12345</p>
+                  {activeClient[0].id}
                 </div>
               </div>
             </div>
@@ -86,7 +88,7 @@ export default function ClientCard({ activeClient }: { activeClient: Client }) {
               <div className="grid gap-1">
                 <div className="font-semibold">Date registered</div>
                 <div className="grid gap-0.5 not-italic text-muted-foreground">
-                  <p>03.05.2024</p>
+                  {activeClient[0].registered}
                 </div>
               </div>
             </div>
@@ -94,7 +96,7 @@ export default function ClientCard({ activeClient }: { activeClient: Client }) {
               <div className="grid gap-1">
                 <div className="font-semibold">Email</div>
                 <div className="grid gap-0.5 not-italic text-muted-foreground">
-                  <a href="mailto:">abnergrech@gmail.com</a>
+                  <a href="mailto:">{activeClient[0].email}</a>
                 </div>
               </div>
             </div>
@@ -102,7 +104,7 @@ export default function ClientCard({ activeClient }: { activeClient: Client }) {
               <div className="grid gap-1">
                 <div className="font-semibold">Phone</div>
                 <div className="grid gap-0.5 not-italic text-muted-foreground">
-                  <a href="tel:">+356 777 67 034</a>
+                  <a href="tel:">{activeClient[0].phone}</a>
                 </div>
               </div>
             </div>
@@ -110,7 +112,7 @@ export default function ClientCard({ activeClient }: { activeClient: Client }) {
               <div className="grid gap-1">
                 <div className="font-semibold">Address</div>
                 <address className="grid gap-0.5 not-italic text-muted-foreground">
-                  <span>131 Triq il-Kbira Qormi, Malta QRM1403</span>
+                  {activeClient[0].address}
                 </address>
               </div>
             </div>
@@ -119,49 +121,49 @@ export default function ClientCard({ activeClient }: { activeClient: Client }) {
         {/* System info */}
         <Card>
           <CardHeader>
-            <CardTitle>System Details</CardTitle>
+            <CardTitle>System</CardTitle>
           </CardHeader>
           <CardContent>
             <div>
               <div className="font-semibold">Type</div>
               <div className="grid gap-0.5 not-italic text-muted-foreground">
-                <span>New installation</span>
+                {activeClient[1].systemType}
               </div>
             </div>
             <div>
               <div className="font-semibold">Panels</div>
               <div className="grid gap-0.5 not-italic text-muted-foreground">
-                <span>10 x Omnis 445w</span>
+                {activeClient[1].panels}
               </div>
             </div>
             <div>
               <div className="font-semibold">Inverter</div>
               <div className="grid gap-0.5 not-italic text-muted-foreground">
-                <span>SolarEdge SE3680H</span>
+                {activeClient[1].inverter}
               </div>
             </div>
             <div>
               <div className="font-semibold">Batteries</div>
               <div className="grid gap-0.5 not-italic text-muted-foreground">
-                <span>SolarEdge 10kw Single Phase</span>
+                {activeClient[1].batteries}
               </div>
             </div>
             <div>
               <div className="font-semibold">Backup</div>
               <div className="grid gap-0.5 not-italic text-muted-foreground">
-                <span>No</span>
+                {activeClient[1].backup ? 'Yes' : 'No'}
               </div>
             </div>
             <div>
               <div className="font-semibold">Frame elevation</div>
               <div className="grid gap-0.5 not-italic text-muted-foreground">
-                <span>No</span>
+                {activeClient[1].frameElevation ? 'Yes' : 'No'}
               </div>
             </div>
             <div>
               <div className="font-semibold">Frame fixing type</div>
               <div className="grid gap-0.5 not-italic text-muted-foreground">
-                <span>On ballasts (kurduni x24)</span>
+                {activeClient[1].frameFixingType}
               </div>
             </div>
           </CardContent>
@@ -170,60 +172,52 @@ export default function ClientCard({ activeClient }: { activeClient: Client }) {
         {/* installations */}
         <Card>
           <CardHeader>
-            <CardTitle>Installation Information</CardTitle>
+            <CardTitle>Installation</CardTitle>
           </CardHeader>
           <CardContent>
             <div>
-              <div className="font-semibold">Notes</div>
-              <div className="grid gap-0.5 not-italic text-muted-foreground">
-                <span>Cable passed</span>
-              </div>
-            </div>
-            <div>
               <div className="font-semibold">House call</div>
               <div className="grid gap-0.5 not-italic text-muted-foreground">
-                <span>Done</span>
+                {activeClient[2].houseCallStatus}
                 <Button size="sm" variant="outline" className="h-8 gap-1">
                   <Download className="h-3.5 w-3.5" />
-                  <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
-                    Download housecall PDF
-                  </span>
+                  <span className=" xl:whitespace-nowrap">Download scan</span>
                 </Button>
               </div>
               <div>
                 <div className="font-semibold">Delivery status</div>
                 <div className="grid gap-0.5 not-italic text-muted-foreground">
-                  <span>Done</span>
+                  {activeClient[2].deliveryStatus}
                 </div>
               </div>
               <div>
                 <div className="font-semibold">Delivery date</div>
                 <div className="grid gap-0.5 not-italic text-muted-foreground">
-                  <span>01.06.2024</span>
+                  {activeClient[2].deliveryDate}
                 </div>
               </div>
               <div>
                 <div className="font-semibold">Installation status</div>
                 <div className="grid gap-0.5 not-italic text-muted-foreground">
-                  <span>Scheduled</span>
+                  {activeClient[2].installationStatus}
                 </div>
               </div>
               <div>
                 <div className="font-semibold">Installation date</div>
                 <div className="grid gap-0.5 not-italic text-muted-foreground">
-                  <span>14.06.2024</span>
+                  {activeClient[2].installationDate}
                 </div>
               </div>
               <div>
                 <div className="font-semibold">Installer</div>
                 <div className="grid gap-0.5 not-italic text-muted-foreground">
-                  <span>Artem</span>
+                  {activeClient[2].installer}
                 </div>
               </div>
               <div>
                 <div className="font-semibold">Certification status</div>
                 <div className="grid gap-0.5 not-italic text-muted-foreground">
-                  <span>pending</span>
+                  {activeClient[2].certificationStatus}
                 </div>
               </div>
             </div>
@@ -233,13 +227,13 @@ export default function ClientCard({ activeClient }: { activeClient: Client }) {
         {/* Payments */}
         <Card>
           <CardHeader>
-            <CardTitle>Payment Information</CardTitle>
+            <CardTitle>Payment</CardTitle>
           </CardHeader>
           <CardContent>
             <div>
               <div className="font-semibold">Agent</div>
               <div className="grid gap-0.5 not-italic text-muted-foreground">
-                <span>Adrian</span>
+                {activeClient[3].agent}
               </div>
             </div>
             <div>
@@ -247,18 +241,35 @@ export default function ClientCard({ activeClient }: { activeClient: Client }) {
               <div className="grid gap-0.5 not-italic text-muted-foreground">
                 <ul className="grid gap-3">
                   <li className="flex items-center justify-between">
-                    <span className="text-muted-foreground">Total</span>
-                    <span>€13050.00</span>
+                    <span className="text-muted-foreground">Total</span>€{' '}
+                    {activeClient[3].balanceTotal}
                   </li>
+                  <Separator />
                   <li className="flex items-center justify-between">
                     <span className="text-muted-foreground">Paid</span>
-                    <span>€5000.00</span>
+                    <div className="">
+                      {activeClient[3].paid.map((payment) => {
+                        return (
+                          <div key={payment.date}>
+                            <div className="flex flex-col items-end">
+                              € {payment.amount}{' '}
+                            </div>
+                            <div className="text-xs">
+                              {payment.date} by {payment.method}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </li>
+                  <Separator />
                   <li className="flex items-center justify-between">
                     <span className="text-muted-foreground">
                       Remaining Balance
                     </span>
-                    <span>€8050.00</span>
+                    <div className="flex flex-col items-end">
+                      € {remainingBalance}
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -269,33 +280,36 @@ export default function ClientCard({ activeClient }: { activeClient: Client }) {
         {/* Grant Status */}
         <Card>
           <CardHeader>
-            <CardTitle>Grant Status</CardTitle>
+            <CardTitle>Grant</CardTitle>
           </CardHeader>
           <CardContent>
             <div>
               <div className="font-semibold">Status</div>
               <div className="grid gap-0.5 not-italic text-muted-foreground">
-                <span>Approved</span>
+                {activeClient[4].grantStatus}
               </div>
             </div>
             <div>
               <div className="font-semibold">Grant deadline</div>
               <div className="grid gap-0.5 not-italic text-muted-foreground">
-                <span>30.07.2024</span>
+                {activeClient[4].grantDeadline}
               </div>
             </div>
             <div>
-              <div className="font-semibold">Part B upload</div>
+              <div className="font-semibold">Part B uploaded</div>
               <div className="grid gap-0.5 not-italic text-muted-foreground">
-                <span>Yes</span>
+                {activeClient[4].isPartBUploaded ? 'Yes' : 'No'}
               </div>
             </div>
             <div>
               <div className="font-semibold">Bank Information</div>
               <div className="grid gap-0.5 not-italic text-muted-foreground">
                 <div className="text-muted-foreground">
-                  <p>IBAN: </p>
-                  <p>Account holders name:</p>
+                  <p>IBAN: {activeClient[4].iban || ''} </p>
+                  <p>
+                    Account holders name:{' '}
+                    {activeClient[4].bankAccountHolder || ''}
+                  </p>
                 </div>
               </div>
             </div>
@@ -309,7 +323,7 @@ export default function ClientCard({ activeClient }: { activeClient: Client }) {
           </CardHeader>
           <CardContent>
             <div className="grid gap-3">
-              <NotesTextArea />
+              <NotesTextArea notes={activeClient[5].notes} />
             </div>
           </CardContent>
         </Card>

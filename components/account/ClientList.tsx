@@ -43,10 +43,9 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { data } from '@/lib/clientsDB';
-import { Client } from '@/lib/clientsDB';
+import { clientsListData as data, TClientPersonalInfo } from '@/lib/clientsDB';
 
-export const columns: ColumnDef<Client>[] = [
+export const columns: ColumnDef<TClientPersonalInfo>[] = [
   {
     accessorKey: 'name',
     header: 'Name',
@@ -62,25 +61,6 @@ export const columns: ColumnDef<Client>[] = [
     header: 'Address',
     cell: ({ row }) => (
       <div className="capitalize">{row.getValue('address')}</div>
-    ),
-  },
-  {
-    accessorKey: 'status',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Status
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => (
-      <Badge variant={'secondary'} className="capitalize">
-        {row.getValue('status')}
-      </Badge>
     ),
   },
 
