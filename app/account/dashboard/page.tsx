@@ -17,7 +17,7 @@ export default function DashboardPage() {
         <ModeToggle />
       </div>
 
-      <main className=" grid grid-col-2 gap-3 pt-3 ">
+      <main className=" grid grid-cols-2 gap-3 pt-3 ">
         <div className=" flex flex-col gap-3">
           <div className=" flex flex-row gap-3">
             <div className="flex-1">

@@ -16,6 +16,7 @@ import {
 import {
   ArrowUpDown,
   ChevronDown,
+  CrossIcon,
   FilterIcon,
   MoreHorizontal,
   Plus,
@@ -44,6 +45,7 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { clientsListData as data, TClientPersonalInfo } from '@/lib/clientsDB';
+import { IoClose } from 'react-icons/io5';
 
 export const columns: ColumnDef<TClientPersonalInfo>[] = [
   {
@@ -163,8 +165,12 @@ export function FilterOptionsDropdownMenu({
 }
 export default function ClientList({
   setActiveClientId,
+  setAddingClient,
+  addingClient,
 }: {
   setActiveClientId: (prev: string) => void;
+  setAddingClient: (value: boolean | ((prevVar: boolean) => boolean)) => void;
+  addingClient: boolean;
 }) {
   const [filter, setFilter] = React.useState<string>('name');
 
@@ -217,9 +223,15 @@ export default function ClientList({
           setFilter={setFilter}
           onReset={filterChangeResetHandler}
         />
-        <Button variant="outline" className="mr-auto">
-          <Plus className=" h-4 w-4 mr-2" /> Add Client
-        </Button>
+        {!addingClient && (
+          <Button
+            variant="outline"
+            className="mr-auto"
+            onClick={() => setAddingClient((state) => !state)}
+          >
+            <Plus className=" h-4 w-4 mr-2" /> Add Client
+          </Button>
+        )}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">

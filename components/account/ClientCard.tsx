@@ -1,4 +1,4 @@
-import { Copy, MoreVertical, Edit, Download } from 'lucide-react';
+import { MoreVertical, Edit, Download } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -68,7 +68,7 @@ export default function ClientCard({
             <CardTitle>Personal</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid  gap-4">
               <div className="grid gap-1">
                 <div className="font-semibold">Name</div>
                 <div className="grid gap-0.5 not-italic text-muted-foreground">
@@ -76,7 +76,7 @@ export default function ClientCard({
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid  gap-4">
               <div className="grid gap-1">
                 <div className="font-semibold">ID</div>
                 <div className="grid gap-0.5 not-italic text-muted-foreground">
@@ -84,7 +84,7 @@ export default function ClientCard({
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid  gap-4">
               <div className="grid gap-1">
                 <div className="font-semibold">Date registered</div>
                 <div className="grid gap-0.5 not-italic text-muted-foreground">
@@ -92,7 +92,7 @@ export default function ClientCard({
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid  gap-4">
               <div className="grid gap-1">
                 <div className="font-semibold">Email</div>
                 <div className="grid gap-0.5 not-italic text-muted-foreground">
@@ -100,7 +100,7 @@ export default function ClientCard({
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid  gap-4">
               <div className="grid gap-1">
                 <div className="font-semibold">Phone</div>
                 <div className="grid gap-0.5 not-italic text-muted-foreground">
@@ -108,7 +108,7 @@ export default function ClientCard({
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid  gap-4">
               <div className="grid gap-1">
                 <div className="font-semibold">Address</div>
                 <address className="grid gap-0.5 not-italic text-muted-foreground">

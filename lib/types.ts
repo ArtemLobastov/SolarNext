@@ -32,3 +32,5 @@ export const loginSchema = z.object({
 });
 
 export type TloginSchema = z.infer<typeof loginSchema>;
+
+export type TPaymentMethod = 'cash' | 'cheque' | 'transfer' | 'barter';
