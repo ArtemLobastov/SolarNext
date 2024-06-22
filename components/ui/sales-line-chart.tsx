@@ -23,24 +23,42 @@ const MyResponsiveLine = (props: any) => (
 
       legendPosition: 'middle',
     }}
-    curve="monotoneX"
     data={props.data}
-    colors={{ scheme: 'category10' }}
+    colors={['#2563eb', '#e11d48', '#1e993e']}
+    theme={{
+      background: '#f1f1f1',
+      tooltip: {
+        chip: {
+          borderRadius: '9999px',
+        },
+        container: {
+          background: '#f0f0f0',
+          color: '#272727',
+          fontSize: 12,
+        },
+      },
+      grid: {
+        line: {
+          stroke: '#181818',
+        },
+      },
+    }}
     enablePointLabel
     enableTouchCrosshair
     margin={{
-      bottom: 30,
-      left: 50,
-      right: 90,
-      top: 20,
+      bottom: 40,
+      left: 60,
+      right: 100,
+      top: 30,
     }}
     pointBorderColor={{
       from: 'color',
       modifiers: [['darker', 0.3]],
     }}
     pointBorderWidth={1}
-    pointSize={16}
+    pointSize={7}
     useMesh
+    role="application"
     xFormat="time:%Y-%m"
     xScale={{
       format: '%Y-%m',

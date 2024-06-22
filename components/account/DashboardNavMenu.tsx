@@ -22,14 +22,8 @@ import { HiOutlineCurrencyEuro } from 'react-icons/hi2';
 import { ImProfile } from 'react-icons/im';
 import { VscTools } from 'react-icons/vsc';
 import Image from 'next/image';
-import { ModeToggle } from '@/components/ui/darkmode-btn';
-import { BreadcrumbAccount } from '@/components/account/BreadCrumbs';
-import { NextPageContext } from 'next';
-import Heading from '@/components/account/Heading';
 
-export default function AccountLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export function Dashboard() {
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-muted/40 md:block">
@@ -57,7 +51,7 @@ export default function AccountLayout({
                 Dashboard
               </Link>
               <Link
-                href="/account/dashboard/sales"
+                href="#"
                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
               >
                 <HiOutlineCurrencyEuro className="h-4 w-4" />
@@ -110,7 +104,7 @@ export default function AccountLayout({
         </div>
       </div>
       <div className="flex flex-col">
-        <header className="flex h-14 items-center justify-between gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+        <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
           <Sheet>
             <SheetTrigger asChild>
               <Button
@@ -172,15 +166,20 @@ export default function AccountLayout({
               </nav>
             </SheetContent>
           </Sheet>
-
-          <Heading />
-
-          <BreadcrumbAccount />
-          <ModeToggle />
+          <div className="w-full flex-1">
+            <form>
+              <div className="relative">
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input
+                  type="search"
+                  placeholder="Search products..."
+                  className="w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/3"
+                />
+              </div>
+            </form>
+          </div>
         </header>
-        <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
-          {children}
-        </main>
+        <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6"></main>
       </div>
     </div>
   );

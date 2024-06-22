@@ -19,6 +19,24 @@ const MyResponsivePie = (props: any) => {
       cornerRadius={3}
       activeOuterRadiusOffset={8}
       colors={{ scheme: 'category10' }}
+      theme={{
+        background: '#f1f1f1',
+        tooltip: {
+          chip: {
+            borderRadius: '9999px',
+          },
+          container: {
+            background: '#f0f0f0',
+            color: '#272727',
+            fontSize: 12,
+          },
+        },
+        grid: {
+          line: {
+            stroke: '#181818',
+          },
+        },
+      }}
       borderWidth={1}
       borderColor={{
         from: 'color',

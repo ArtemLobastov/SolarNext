@@ -16,22 +16,14 @@ export default function ClientsPage() {
   );
 
   return (
-    <>
-      <div className="flex justify-between items-center ">
-        <h1 className="text-5xl font-semibold">Clients</h1>
-        <BreadcrumbAccount way={['Dashboard', 'Clients']} />
-        <ModeToggle />
-      </div>
-
-      <main className="flex flex-col gap-3 pt-3">
-        {activeClient && <ClientCard activeClient={activeClient} />}
-        {addingClient && <AddClient setAddingClient={setAddingClient} />}
-        <ClientList
-          addingClient={addingClient}
-          setAddingClient={setAddingClient}
-          setActiveClientId={setActiveClientId}
-        />
-      </main>
-    </>
+    <main className="flex flex-col gap-3 pt-3">
+      {activeClient && <ClientCard activeClient={activeClient} />}
+      {addingClient && <AddClient setAddingClient={setAddingClient} />}
+      <ClientList
+        addingClient={addingClient}
+        setAddingClient={setAddingClient}
+        setActiveClientId={setActiveClientId}
+      />
+    </main>
   );
 }

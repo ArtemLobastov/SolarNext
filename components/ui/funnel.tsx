@@ -14,6 +14,24 @@ const MyResponsiveFunnel = (props: any) => {
       data={props.data}
       margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
       colors={{ scheme: 'greens' }}
+      theme={{
+        background: '#f1f1f1',
+        tooltip: {
+          chip: {
+            borderRadius: '9999px',
+          },
+          container: {
+            background: '#f0f0f0',
+            color: '#272727',
+            fontSize: 12,
+          },
+        },
+        grid: {
+          line: {
+            stroke: '#181818',
+          },
+        },
+      }}
       borderWidth={2}
       borderColor="#757575"
       borderOpacity={1}
