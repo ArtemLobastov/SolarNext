@@ -34,3 +34,28 @@ export const loginSchema = z.object({
 export type TloginSchema = z.infer<typeof loginSchema>;
 
 export type TPaymentMethod = 'cash' | 'cheque' | 'transfer' | 'barter';
+
+//create user form schema
+export const userFormSchema = z.object({
+  name: z
+    .string({
+      required_error: 'Required',
+    })
+    .min(3, 'Must be at least 3 characters'),
+
+  role: z
+    .string({
+      required_error: 'Required',
+    })
+    .min(3, 'Required'),
+  activated: z.boolean(),
+  email: z.string().email(),
+  phone: z
+    .string()
+    .regex(/^\+?[0-9\s\-().]{7,15}$/, 'Invalid phone Number Format'),
+  password: z
+    .string()
+    .min(5, 'Must be at least 5 characters')
+    .max(20, 'Must be 20 characters max'),
+});
+export type TUserFormSchema = z.infer<typeof userFormSchema>;

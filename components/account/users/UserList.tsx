@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -16,9 +17,12 @@ import {
 import {
   ArrowUpDown,
   ChevronDown,
+  FilePenIcon,
   FilterIcon,
   MoreHorizontal,
   Plus,
+  Send,
+  TrashIcon,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -42,35 +46,58 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+// { clientsListData as data, TClientPersonalInfo } from '@/lib/clientsDB';
+import { IUser, users as data } from '@/lib/usersDB';
 import { Badge } from '@/components/ui/badge';
-import { clientsListData as data, TClientPersonalInfo } from '@/lib/clientsDB';
-import { IoClose } from 'react-icons/io5';
-
-export const columns: ColumnDef<TClientPersonalInfo>[] = [
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+export const columns: ColumnDef<IUser>[] = [
+  {
+    accessorKey: 'avatarSrc',
+    header: '',
+    cell: ({ row }) => {
+      const userName: string = row.getValue('name');
+      const userInitials = userName
+        .split(' ')
+        .map((word) => word.slice(0, 1))
+        .join(' ');
+      return (
+        <Avatar>
+          <AvatarImage src={row.getValue('avatarSrc')} alt="user avatar" />
+          <AvatarFallback>{userInitials}</AvatarFallback>
+        </Avatar>
+      );
+    },
+  },
   {
     accessorKey: 'name',
     header: 'Name',
     cell: ({ row }) => <div className="capitalize">{row.getValue('name')}</div>,
   },
   {
-    accessorKey: 'id',
-    header: 'id',
-    cell: ({ row }) => <div className="capitalize">{row.getValue('id')}</div>,
-  },
-  {
-    accessorKey: 'address',
-    header: 'Address',
+    accessorKey: 'role',
+    header: 'Role',
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue('address')}</div>
+      <Badge variant={'secondary'} className="capitalize">
+        {row.getValue('role')}
+      </Badge>
     ),
   },
 
   {
+    accessorKey: 'id',
+    header: 'Id',
+    cell: ({ row }) => <div className="capitalize">{row.getValue('id')}</div>,
+  },
+  {
+    accessorKey: 'email',
+    header: 'Email',
+    cell: ({ row }) => <div className=" text-xs">{row.getValue('email')}</div>,
+  },
+
+  {
     accessorKey: 'phone',
-    header: 'phone',
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue('phone')}</div>
-    ),
+    header: 'Phone',
+    cell: ({ row }) => <div className="">{row.getValue('phone')}</div>,
   },
 
   {
@@ -87,14 +114,47 @@ export const columns: ColumnDef<TClientPersonalInfo>[] = [
       );
     },
     cell: ({ table, row }) => (
-      <div className="capitalize">{row.getValue('registered')}</div>
+      <div className="text-xs">{row.getValue('registered')}</div>
+    ),
+  },
+  {
+    accessorKey: 'activated',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Status
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => (
+      <div className="capitalize">
+        {row.getValue('activated') ? (
+          <Badge
+            variant="secondary"
+            className=" bg-green-100 hover:bg-green-200 dark:bg-green-900 dark:hover:bg-green-800"
+          >
+            Activated
+          </Badge>
+        ) : (
+          <Badge
+            variant="secondary"
+            className="bg-red-100 hover:bg-red-200  dark:hover:bg-red-800 dark:bg-red-900"
+          >
+            Deactivated
+          </Badge>
+        )}
+      </div>
     ),
   },
   {
     id: 'actions',
     enableHiding: false,
     cell: ({ row }) => {
-      const client = row.original;
+      const user = row.original;
 
       return (
         <DropdownMenu>
@@ -107,21 +167,22 @@ export const columns: ColumnDef<TClientPersonalInfo>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => {
-                console.log(client);
-                navigator.clipboard.writeText(
-                  Object.entries(client)
-                    .map(([key, value]) => `${key}: ${JSON.stringify(value)}`)
-                    .join('\n')
-                );
-              }}
-            >
-              Copy info
-            </DropdownMenuItem>
-            <DropdownMenuItem>View client</DropdownMenuItem>
-            <DropdownMenuItem>Edit</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            <div className="flex flex-col gap-2">
+              <DropdownMenuItem
+                className="gap-1"
+                onClick={() => console.log(1)}
+              >
+                <Send className="h-4 w-4" />
+                Send Login Info
+              </DropdownMenuItem>
+              <DropdownMenuItem className="gap-1">
+                <FilePenIcon className="h-4 w-4" />
+                Edit
+              </DropdownMenuItem>
+              <DropdownMenuItem className="gap-1">
+                <TrashIcon className="h-4 w-4" /> Delete
+              </DropdownMenuItem>
+            </div>
           </DropdownMenuContent>
         </DropdownMenu>
       );
@@ -151,25 +212,24 @@ export function FilterOptionsDropdownMenu({
           <DropdownMenuRadioItem value="name" onClick={() => onReset()}>
             Name
           </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="id" onClick={() => onReset()}>
-            Id
-          </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="address" onClick={() => onReset()}>
-            Address
+          <DropdownMenuRadioItem value="email" onClick={() => onReset()}>
+            Email
           </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
-export default function ClientList({
-  setActiveClientId,
-  setAddingClient,
-  addingClient,
+
+//TODO change state to USER
+export default function UserList({
+  setActiveUserId,
+  setAddingUser,
+  addingUser,
 }: {
-  setActiveClientId: (prev: string) => void;
-  setAddingClient: (value: boolean | ((prevVar: boolean) => boolean)) => void;
-  addingClient: boolean;
+  setActiveUserId: (prev: string) => void;
+  setAddingUser: (value: boolean | ((prevVar: boolean) => boolean)) => void;
+  addingUser: boolean;
 }) {
   const [filter, setFilter] = React.useState<string>('name');
 
@@ -202,14 +262,14 @@ export default function ClientList({
     },
   });
   function filterChangeResetHandler(): void {
-    table.getColumn('id')?.setFilterValue('');
+    table.getColumn('email')?.setFilterValue('');
     table.getColumn('name')?.setFilterValue('');
   }
   return (
     <div className="w-full">
       <div className="flex items-center gap-3 py-4">
         <Input
-          placeholder="Search clients..."
+          placeholder="Search users..."
           value={(table.getColumn(filter)?.getFilterValue() as string) ?? ''}
           onChange={(event) => {
             table.getColumn(filter)?.setFilterValue(event.target.value);
@@ -222,13 +282,14 @@ export default function ClientList({
           setFilter={setFilter}
           onReset={filterChangeResetHandler}
         />
-        {!addingClient && (
+        {!addingUser && (
           <Button
             variant="outline"
             className="mr-auto"
-            onClick={() => setAddingClient((state) => !state)}
+            // TODO change to user
+            //onClick={() => setAddingUser(state) => !state)}
           >
-            <Plus className=" h-4 w-4 mr-2" /> Add Client
+            <Plus className=" h-4 w-4 mr-2" /> Add User
           </Button>
         )}
         <DropdownMenu>
@@ -285,7 +346,7 @@ export default function ClientList({
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
                   onClick={() => {
-                    setActiveClientId(row.original.id);
+                    //setActiveUserId(row.original.id);
                     row.toggleSelected();
                   }}
                 >

@@ -1,6 +1,12 @@
 'use server';
+import { revalidatePath } from 'next/cache';
 
-import { leadFormSchema, loginSchema } from './types';
+import {
+  TUserFormSchema,
+  leadFormSchema,
+  loginSchema,
+  userFormSchema,
+} from './types';
 
 export interface ActionResult {
   message: string;
@@ -40,10 +46,41 @@ export async function loginAction(
   }
   //Special server validation check
   if (parsedResult.data.email.includes('a')) {
-    return { message: 'Wrong login or password' };
+    return { message: 'Wrong email' };
   }
   // //TODO: if ok - save data to DB
 
+  return {
+    message: 'Success',
+  };
+}
+
+export async function createUserAction(
+  prevState: ActionResult,
+  data: {
+    name: string;
+    email: string;
+    password: string;
+    phone: string;
+    role: string;
+    activated: boolean;
+  }
+): Promise<ActionResult> {
+  //TODO remove timer
+  await new Promise((res) => setTimeout(res, 1000));
+  //validate data with zod
+  const parsedResult = userFormSchema.safeParse(data);
+  if (!parsedResult.success) {
+    return { message: parsedResult.error.toString() };
+  }
+  //Special server validation check
+  if (parsedResult.data.email.includes('a')) {
+    return { message: 'Custom server error' };
+  }
+  // //TODO: if ok - save data to DB
+  console.log(data);
+  //revalidate path
+  revalidatePath('/account/dashboard/users');
   return {
     message: 'Success',
   };

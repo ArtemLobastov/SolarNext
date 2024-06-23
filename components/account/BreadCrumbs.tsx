@@ -12,12 +12,11 @@ import {
 
 export function BreadcrumbAccount() {
   const pathname = usePathname();
-  console.log(pathname);
   const way = pathname.split('/').slice(1);
   const page = way.at(-1);
 
   return (
-    <Breadcrumb>
+    <Breadcrumb className="invisible md:visible">
       <BreadcrumbList>
         {page !== 'dashboard' && (
           <>
@@ -32,7 +31,7 @@ export function BreadcrumbAccount() {
 
         {way.slice(2, -1).length > 0 &&
           way.slice(2, -1).map((route) => (
-            <>
+            <div key={route} className="flex items-center">
               <BreadcrumbItem>
                 <BreadcrumbLink
                   className="capitalize"
@@ -42,8 +41,9 @@ export function BreadcrumbAccount() {
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
-            </>
+            </div>
           ))}
+
         <BreadcrumbItem>
           <BreadcrumbPage className="capitalize">{page}</BreadcrumbPage>
         </BreadcrumbItem>
