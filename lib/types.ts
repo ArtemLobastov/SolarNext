@@ -42,7 +42,8 @@ export const userFormSchema = z.object({
       required_error: 'Required',
     })
     .min(3, 'Must be at least 3 characters'),
-
+  id: z.string(),
+  registered: z.date(),
   role: z
     .string({
       required_error: 'Required',

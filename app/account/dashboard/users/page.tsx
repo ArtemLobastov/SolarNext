@@ -1,16 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { FilePenIcon, TrashIcon } from 'lucide-react';
+
 import CreateUser from '@/components/account/users/CreateUser';
 import UserList from '@/components/account/users/UserList';
 import EditUser from '@/components/account/users/EditUser';
@@ -42,8 +33,10 @@ export default function UsersPage() {
       role: 'Agent',
     },
   ]);
-  const [showAddUser, setShowAddUser] = useState<boolean>(false);
-  const [showEditUser, setShowEditUser] = useState<boolean>(false);
+
+  const [showAddUser, setShowAddUser] = useState(false);
+  const [showEditUser, setShowEditUser] = useState(true);
+  const [activeUserId, setActiveUserId] = useState(1);
   const handleAddUser = () => {
     setShowAddUser(true);
   };
@@ -68,13 +61,11 @@ export default function UsersPage() {
   };
   return (
     <>
-      <CreateUser />
-      <EditUser />
-      <UserList
-        setActiveUserId={() => console.log(1)}
-        setAddingUser={() => console.log(2)}
-        addingUser={false}
-      />
+      {showAddUser && <CreateUser setShowAddUser={setShowAddUser} />}
+      {showEditUser && (
+        <EditUser userId={activeUserId} setShowEditUser={setShowEditUser} />
+      )}
+      <UserList setShowAddUser={setShowAddUser} showAddUser={showAddUser} />
     </>
   );
 }

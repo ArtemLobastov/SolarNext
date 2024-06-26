@@ -223,13 +223,11 @@ export function FilterOptionsDropdownMenu({
 
 //TODO change state to USER
 export default function UserList({
-  setActiveUserId,
-  setAddingUser,
-  addingUser,
+  setShowAddUser,
+  showAddUser,
 }: {
-  setActiveUserId: (prev: string) => void;
-  setAddingUser: (value: boolean | ((prevVar: boolean) => boolean)) => void;
-  addingUser: boolean;
+  setShowAddUser: (value: boolean | ((prevVar: boolean) => boolean)) => void;
+  showAddUser: boolean;
 }) {
   const [filter, setFilter] = React.useState<string>('name');
 
@@ -282,12 +280,14 @@ export default function UserList({
           setFilter={setFilter}
           onReset={filterChangeResetHandler}
         />
-        {!addingUser && (
+        {!showAddUser && (
           <Button
             variant="outline"
             className="mr-auto"
             // TODO change to user
-            //onClick={() => setAddingUser(state) => !state)}
+            onClick={() => {
+              setShowAddUser(true);
+            }}
           >
             <Plus className=" h-4 w-4 mr-2" /> Add User
           </Button>

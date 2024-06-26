@@ -15,6 +15,17 @@ export interface IUser {
 export const users: IUser[] = [
   {
     id: 1,
+    name: 'Artem Lobastov',
+    email: 'artem.lobastov@example.mt',
+    password: 'securePass1!',
+    phone: '77767543',
+    role: 'admin',
+    activated: true,
+    registered: '2023-01-02',
+    avatarSrc: 'user_avatar.jpg',
+  },
+  {
+    id: 2,
     name: 'Brooke Borg',
     email: 'brooke.borg@example.mt',
     password: 'securePass1!',
@@ -22,17 +33,6 @@ export const users: IUser[] = [
     role: 'admin',
     activated: true,
     registered: '2023-01-15',
-    avatarSrc: '',
-  },
-  {
-    id: 2,
-    name: 'Joseph Camilleri',
-    email: 'joseph.camilleri@example.mt',
-    password: 'maltaCross123!',
-    phone: '23456789',
-    role: 'manager',
-    activated: true,
-    registered: '2023-02-20',
     avatarSrc: '',
   },
   {

@@ -26,11 +26,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { IUser } from '@/lib/usersDB';
 
-export default function CreateUserForm({
-  setShowAddUser,
+export default function EditUserForm({
+  setShowEditUser,
+  userData,
 }: {
-  setShowAddUser: (value: boolean | ((prevVar: boolean) => boolean)) => void;
+  userData: IUser;
+  setShowEditUser: (value: boolean | ((prevVar: boolean) => boolean)) => void;
 }) {
   const [state, action] = useFormState<any, any>(createUserAction, {
     message: '',
@@ -39,12 +42,12 @@ export default function CreateUserForm({
   const form = useForm<TUserFormSchema>({
     resolver: zodResolver(userFormSchema),
     defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-      phone: '',
-      role: '',
-      activated: true,
+      name: userData.name,
+      email: userData.email,
+      password: userData.password,
+      phone: userData.phone,
+      role: userData.role,
+      activated: userData.activated,
     },
   });
   const formRef = useRef<HTMLFormElement>(null);
@@ -178,6 +181,20 @@ export default function CreateUserForm({
             </FormItem>
           )}
         />
+        <FormField
+          //TODO password generator
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Repeat password</FormLabel>
+              <FormControl>
+                <Input placeholder="password" type="password" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         {/* isActivated */}
         <FormField
           control={form.control}
@@ -229,7 +246,7 @@ export default function CreateUserForm({
           className="w-full"
           disabled={isPending}
         >
-          {!isPending ? 'Create' : <Loader2 className=" animate-spin" />}
+          {!isPending ? 'Save changes' : <Loader2 className=" animate-spin" />}
         </Button>
         <Button
           type="button"
@@ -237,7 +254,7 @@ export default function CreateUserForm({
           className="w-full"
           disabled={isPending}
           onClick={() => {
-            setShowAddUser(false);
+            setShowEditUser(false);
           }}
         >
           {!isPending ? 'Close' : <Loader2 className=" animate-spin" />}

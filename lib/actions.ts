@@ -58,12 +58,14 @@ export async function loginAction(
 export async function createUserAction(
   prevState: ActionResult,
   data: {
+    id: string;
     name: string;
     email: string;
     password: string;
     phone: string;
     role: string;
     activated: boolean;
+    registered: Date;
   }
 ): Promise<ActionResult> {
   //TODO remove timer
@@ -78,6 +80,8 @@ export async function createUserAction(
     return { message: 'Custom server error' };
   }
   // //TODO: if ok - save data to DB
+  //TODO: format data? import { format } from 'date-fns';
+
   console.log(data);
   //revalidate path
   revalidatePath('/account/dashboard/users');

@@ -26,6 +26,8 @@ export default function AccountLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     //TODO auto resize nav width
+    //TODO fixed nav on mobile
+    //FIXME cannot close nav on mobile screen on /users
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[230px_1fr]">
       <div className="hidden border-r bg-muted/40 md:block">
         <div className="fixed flex h-full max-h-screen flex-col gap-2">
