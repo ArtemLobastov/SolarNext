@@ -90,3 +90,40 @@ export async function createUserAction(
     message: 'Success',
   };
 }
+
+export async function editUserAction(
+  prevState: ActionResult,
+  data: {
+    id: string;
+    name: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+    phone: string;
+    role: string;
+    activated: boolean;
+    registered: Date;
+  }
+): Promise<ActionResult> {
+  //TODO remove timer
+  await new Promise((res) => setTimeout(res, 1000));
+  //validate data with zod
+  const parsedResult = userFormSchema.safeParse(data);
+  if (!parsedResult.success) {
+    return { message: parsedResult.error.toString() };
+  }
+  //Special server validation check
+  if (parsedResult.data.email.includes('a')) {
+    return { message: 'Custom server error' };
+  }
+  // //TODO: if ok - save user to DB replacing old data
+
+  //TODO: format data? import { format } from 'date-fns';
+
+  console.log(data);
+  //revalidate path
+  revalidatePath('/account/dashboard/users');
+  return {
+    message: 'Success',
+  };
+}

@@ -63,7 +63,7 @@ export default function CreateUserForm({
           duration: 3000,
         });
         form.reset();
-
+        setShowAddUser(false);
         //TODO close the form
       } else {
         toast({

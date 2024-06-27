@@ -5,7 +5,12 @@ import { Input } from '@/components/ui/input';
 import { useRef, useState } from 'react';
 import { useFormState } from 'react-dom';
 import { Loader2 } from 'lucide-react';
-import { ActionResult, createUserAction, loginAction } from '@/lib/actions';
+import {
+  ActionResult,
+  createUserAction,
+  editUserAction,
+  loginAction,
+} from '@/lib/actions';
 import { useForm } from 'react-hook-form';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
@@ -27,6 +32,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { IUser } from '@/lib/usersDB';
+import { PasswordInput } from '@/components/ui/password-input';
 
 export default function EditUserForm({
   setShowEditUser,
@@ -45,6 +51,7 @@ export default function EditUserForm({
       name: userData.name,
       email: userData.email,
       password: userData.password,
+      confirmPassword: userData.password,
       phone: userData.phone,
       role: userData.role,
       activated: userData.activated,
@@ -54,16 +61,16 @@ export default function EditUserForm({
   const onSubmit = async (data: TUserFormSchema) => {
     setIsPending(true);
     try {
-      const result: ActionResult = await createUserAction(state, data);
+      const result: ActionResult = await editUserAction(state, data);
       if (result.message === 'Success') {
         toast({
           title: 'Success',
           variant: 'success',
-          description: 'User created',
+          description: 'Changes saved',
           duration: 3000,
         });
         form.reset();
-
+        setShowEditUser(false);
         //TODO close the form
       } else {
         toast({
@@ -166,30 +173,27 @@ export default function EditUserForm({
           )}
         />
         {/* PASSWORD */}
-
         <FormField
-          //TODO password generator
           control={form.control}
           name="password"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="password" type="password" {...field} />
+                <PasswordInput placeholder="password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
         <FormField
-          //TODO password generator
           control={form.control}
-          name="password"
+          name="confirmPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Repeat password</FormLabel>
+              <FormLabel>Confirm Password</FormLabel>
               <FormControl>
-                <Input placeholder="password" type="password" {...field} />
+                <PasswordInput placeholder="password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
