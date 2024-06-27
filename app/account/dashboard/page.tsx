@@ -23,7 +23,7 @@ export default function DashboardPage() {
           <RecentPayments />
         </div>
       </div>
-
+      {/* TODO darkmode vidgets styling */}
       <InstallersPieChartVidget />
       <DataTableStock />
       <FunnelCard />

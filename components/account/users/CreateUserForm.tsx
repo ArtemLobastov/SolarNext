@@ -26,6 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { PasswordInput } from '@/components/ui/password-input';
 
 export default function CreateUserForm({
   setShowAddUser,
@@ -48,6 +49,7 @@ export default function CreateUserForm({
     },
   });
   const formRef = useRef<HTMLFormElement>(null);
+  //TODO toasts darkmode styling
   const onSubmit = async (data: TUserFormSchema) => {
     setIsPending(true);
     try {
@@ -164,7 +166,7 @@ export default function CreateUserForm({
         />
         {/* PASSWORD */}
 
-        <FormField
+        {/* <FormField
           //TODO password generator
           control={form.control}
           name="password"
@@ -173,6 +175,20 @@ export default function CreateUserForm({
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input placeholder="password" type="password" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        /> */}
+        <FormField
+          //TODO password generator
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <PasswordInput placeholder="password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
