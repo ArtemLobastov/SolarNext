@@ -43,6 +43,7 @@ export default function CreateUserForm({
       name: '',
       email: '',
       password: '',
+      confirmPassword: '',
       phone: '',
       role: '',
       activated: true,
@@ -166,27 +167,25 @@ export default function CreateUserForm({
         />
         {/* PASSWORD */}
 
-        {/* <FormField
-          //TODO password generator
+        <FormField
           control={form.control}
           name="password"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="password" type="password" {...field} />
+                <PasswordInput placeholder="password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
-        /> */}
+        />
         <FormField
-          //TODO password generator
           control={form.control}
-          name="password"
+          name="confirmPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Confirm Password</FormLabel>
               <FormControl>
                 <PasswordInput placeholder="password" {...field} />
               </FormControl>
