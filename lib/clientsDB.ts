@@ -5,13 +5,8 @@ export type TPayment = {
 };
 export type TClient = [
   {
-    dataCategory:
-      | 'personal information'
-      | 'system details'
-      | 'installation information'
-      | 'payment information'
-      | 'grant'
-      | 'notes';
+    dataCategory: 'personal information';
+
     id: string;
     name: string;
     address: string;
@@ -20,13 +15,7 @@ export type TClient = [
     registered: string;
   },
   {
-    dataCategory:
-      | 'personal information'
-      | 'system details'
-      | 'installation information'
-      | 'payment information'
-      | 'grant'
-      | 'notes';
+    dataCategory: 'system details';
     systemType: string;
     panels: string;
     inverter: string;
@@ -36,13 +25,8 @@ export type TClient = [
     frameFixingType: string;
   },
   {
-    dataCategory:
-      | 'personal information'
-      | 'system details'
-      | 'installation information'
-      | 'payment information'
-      | 'grant'
-      | 'notes';
+    dataCategory: 'installation information';
+
     houseCallStatus: string;
     houseCallScanSrc: string;
     deliveryStatus: string;
@@ -53,25 +37,13 @@ export type TClient = [
     certificationStatus: string;
   },
   {
-    dataCategory:
-      | 'personal information'
-      | 'system details'
-      | 'installation information'
-      | 'payment information'
-      | 'grant'
-      | 'notes';
+    dataCategory: 'payment information';
     agent: string;
     balanceTotal: number;
     paid: TPayment[];
   },
   {
-    dataCategory:
-      | 'personal information'
-      | 'system details'
-      | 'installation information'
-      | 'payment information'
-      | 'grant'
-      | 'notes';
+    dataCategory: 'grant';
     grantStatus: string;
     grantDeadline: string;
     isPartBUploaded: boolean;
@@ -79,25 +51,13 @@ export type TClient = [
     bankAccountHolder: string;
   },
   {
-    dataCategory:
-      | 'personal information'
-      | 'system details'
-      | 'installation information'
-      | 'payment information'
-      | 'grant'
-      | 'notes';
+    dataCategory: 'notes';
     notes: string[];
     lastUpdate: string;
   }
 ];
 export type TClientPersonalInfo = {
-  dataCategory:
-    | 'personal information'
-    | 'system details'
-    | 'installation information'
-    | 'payment information'
-    | 'grant'
-    | 'notes';
+  dataCategory: 'personal information';
   id: string;
   name: string;
   address: string;
