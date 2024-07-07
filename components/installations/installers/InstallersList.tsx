@@ -99,12 +99,11 @@ export const columns: ColumnDef<IUser>[] = [
   },
 ];
 
-export default function InstallersList({
-  setShowAddUser,
-  showAddUser,
-}: {
-  setShowAddUser: (value: boolean | ((prevVar: boolean) => boolean)) => void;
-  showAddUser: boolean;
+export default function InstallersList({}: // setShowAddUser,
+// showAddUser,
+{
+  // setShowAddUser: (value: boolean | ((prevVar: boolean) => boolean)) => void;
+  // showAddUser: boolean;
 }) {
   const [filter, setFilter] = React.useState<string>('name');
 
@@ -141,7 +140,7 @@ export default function InstallersList({
     <div className="w-full">
       <div className="flex items-center gap-3 py-4">
         <Input
-          placeholder="Search users..."
+          placeholder="Search installer..."
           value={(table.getColumn(filter)?.getFilterValue() as string) ?? ''}
           onChange={(event) => {
             table.getColumn(filter)?.setFilterValue(event.target.value);
@@ -149,7 +148,8 @@ export default function InstallersList({
           className="max-w-sm"
         />
 
-        {!showAddUser && <AddInstallerBtn />}
+        {/* {!showAddUser &&  */}
+        <AddInstallerBtn />
       </div>
       <div className="rounded-md border">
         <Table>
@@ -207,8 +207,7 @@ export default function InstallersList({
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{' '}
-          {table.getFilteredRowModel().rows.length} client(s) selected.
+          10 of 10 positions showing.
         </div>
         <div className="space-x-2">
           <Button

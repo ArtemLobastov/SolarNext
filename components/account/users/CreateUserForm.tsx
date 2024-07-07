@@ -6,7 +6,7 @@ import { useRef, useState } from 'react';
 import { useFormState } from 'react-dom';
 import { Loader2 } from 'lucide-react';
 import { ActionResult, createUserAction, loginAction } from '@/lib/actions';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { format } from 'date-fns';
@@ -38,6 +38,7 @@ export default function CreateUserForm({
   });
   const [isPending, setIsPending] = useState(false);
   const form = useForm<TUserFormSchema>({
+    mode: 'onBlur',
     resolver: zodResolver(userFormSchema),
     defaultValues: {
       name: '',
@@ -51,7 +52,7 @@ export default function CreateUserForm({
   });
   const formRef = useRef<HTMLFormElement>(null);
   //TODO toasts darkmode styling
-  const onSubmit = async (data: TUserFormSchema) => {
+  const onSubmit: SubmitHandler<TUserFormSchema> = async (data) => {
     setIsPending(true);
     try {
       const result: ActionResult = await createUserAction(state, data);

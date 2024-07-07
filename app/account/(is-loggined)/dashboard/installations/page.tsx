@@ -7,10 +7,10 @@ import { Button } from '@/components/ui/button';
 
 export default function InstallationsPage() {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 ">
       <InstallationsKpiCard />
-      <Jobs />
       <FinishedInstallationAddBtn />
+      <Jobs />
       <Installers />
       <WarrantyCases />
     </div>

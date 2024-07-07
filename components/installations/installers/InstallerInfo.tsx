@@ -18,13 +18,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import { TClient } from '@/lib/clientsDB';
-import { Separator } from '@/components/ui/separator';
-import NotesTextArea from '@/components/account/NotesTextArea';
 
-export default function ClientCard({
-  activeClient,
-}: {
-  activeClient: TClient;
+//TODO active installer info
+export default function ClientCard({}: // activeClient,
+{
+  // activeClient: TClient;
 }) {
   return (
     <Card className="overflow-hidden">
@@ -57,7 +55,7 @@ export default function ClientCard({
           </DropdownMenu>
         </div>
       </CardHeader>
-      <CardContent className="text-sm p-3 grid grid-cols-3 gap-3  ">
+      <CardContent className="text-sm p-3 grid grid-cols-2 gap-3  ">
         {/* PERSONAL DATA */}
         <Card>
           <CardHeader>

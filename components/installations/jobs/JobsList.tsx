@@ -1,5 +1,5 @@
 'use client';
-import { Job } from '@/lib/jobsDB';
+import { Job, jobsDataDummyList as data } from '@/lib/jobsDB';
 
 type JobsListProps = {
   jobs: Job[];
@@ -48,54 +48,119 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { clientsListData as data, TClientPersonalInfo } from '@/lib/clientsDB';
+import { clientsListData, TClientPersonalInfo } from '@/lib/clientsDB';
 import { IoClose } from 'react-icons/io5';
 import AddJobBtn from './AddJobBtn';
 
-export const columns: ColumnDef<TClientPersonalInfo>[] = [
+export const columns: ColumnDef<Job>[] = [
   {
-    accessorKey: 'name',
-    header: 'Name',
-    cell: ({ row }) => <div className="capitalize">{row.getValue('name')}</div>,
-  },
-  {
-    accessorKey: 'id',
-    header: 'id',
-    cell: ({ row }) => <div className="capitalize">{row.getValue('id')}</div>,
-  },
-  {
-    accessorKey: 'address',
-    header: 'Address',
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue('address')}</div>
-    ),
-  },
-
-  {
-    accessorKey: 'phone',
-    header: 'phone',
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue('phone')}</div>
-    ),
-  },
-
-  {
-    accessorKey: 'registered',
+    accessorKey: 'date',
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          Registered
+          Date
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ table, row }) => (
-      <div className="capitalize">{row.getValue('registered')}</div>
+      <div className="capitalize">{row.getValue('date')}</div>
     ),
   },
+  {
+    accessorKey: 'clientName',
+    header: 'Client',
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue('clientName')}</div>
+    ),
+  },
+  {
+    accessorKey: 'clientId',
+    header: 'Clients id',
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue('clientId')}</div>
+    ),
+  },
+  {
+    accessorKey: 'clientLocation',
+    header: 'Address',
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue('clientLocation')}</div>
+    ),
+  },
+
+  {
+    accessorKey: 'clientPhone',
+    header: 'Phone',
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue('clientPhone')}</div>
+    ),
+  },
+  {
+    accessorKey: 'type',
+    header: 'Type',
+    cell: ({ row }) => (
+      <Badge className="capitalize" variant={'secondary'}>
+        {row.getValue('type')}
+      </Badge>
+    ),
+  },
+  {
+    accessorKey: 'status',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Status
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ table, row }) => (
+      <Badge variant={'outline'} className="capitalize">
+        {row.getValue('status')}
+      </Badge>
+    ),
+  },
+
+  {
+    accessorKey: 'description',
+    header: 'Description',
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue('description')}</div>
+    ),
+  },
+  {
+    accessorKey: 'assignee',
+    header: 'Assignee',
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue('assignee')}</div>
+    ),
+  },
+  {
+    accessorKey: 'remainingBalanceToCollect',
+    header: 'Remaining Balance',
+    cell: ({ row }) => (
+      <div className="capitalize">
+        {row.getValue('remainingBalanceToCollect')
+          ? '€ ' + row.getValue('remainingBalanceToCollect')
+          : 0}
+      </div>
+    ),
+  },
+  {
+    accessorKey: 'notes',
+    header: 'Notes',
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue('notes')}</div>
+    ),
+  },
+
   {
     id: 'actions',
     enableHiding: false,
@@ -149,18 +214,24 @@ export function FilterOptionsDropdownMenu({
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="capitalize">
           <FilterIcon className=" h-4 w-4 mr-2" />
-          Filter option: {filter}
+          {/* TODO date filter option (year,month) */}
+          Filter option {filter === 'clientName' && ': Name'}
+          {filter === 'assignee' && ': Assignee'}
+          {filter === 'clientLocation' && ': Address'}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuRadioGroup value={filter} onValueChange={setFilter}>
-          <DropdownMenuRadioItem value="name" onClick={() => onReset()}>
+          <DropdownMenuRadioItem value="clientName" onClick={() => onReset()}>
             Name
           </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="id" onClick={() => onReset()}>
-            Id
+          <DropdownMenuRadioItem value="assignee" onClick={() => onReset()}>
+            Assignee
           </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="address" onClick={() => onReset()}>
+          <DropdownMenuRadioItem
+            value="clientLocation"
+            onClick={() => onReset()}
+          >
             Address
           </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
@@ -168,18 +239,8 @@ export function FilterOptionsDropdownMenu({
     </DropdownMenu>
   );
 }
-export default function JobsList({
-  jobs,
-  setActiveClientId,
-  setAddingClient,
-  addingClient,
-}: {
-  jobs: Job[];
-  setActiveClientId: (prev: string) => void;
-  setAddingClient: (value: boolean | ((prevVar: boolean) => boolean)) => void;
-  addingClient: boolean;
-}) {
-  const [filter, setFilter] = React.useState<string>('name');
+export default function JobsList({ jobs }: { jobs: Job[] }) {
+  const [filter, setFilter] = React.useState<string>('clientName');
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -209,9 +270,11 @@ export default function JobsList({
       rowSelection,
     },
   });
+  //TODO filters reset
   function filterChangeResetHandler(): void {
-    table.getColumn('id')?.setFilterValue('');
-    table.getColumn('name')?.setFilterValue('');
+    table.getColumn('clientName')?.setFilterValue('');
+    table.getColumn('assignee')?.setFilterValue('');
+    table.getColumn('clientLocation')?.setFilterValue('');
   }
   return (
     <div className="w-full">
@@ -230,7 +293,8 @@ export default function JobsList({
           setFilter={setFilter}
           onReset={filterChangeResetHandler}
         />
-        {!addingClient && <AddJobBtn />}
+        <AddJobBtn />
+        {/* TODO download exel Btn */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
@@ -285,7 +349,6 @@ export default function JobsList({
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
                   onClick={() => {
-                    setActiveClientId(row.original.id);
                     row.toggleSelected();
                   }}
                 >
@@ -313,10 +376,6 @@ export default function JobsList({
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{' '}
-          {table.getFilteredRowModel().rows.length} client(s) selected.
-        </div>
         <div className="space-x-2">
           <Button
             variant="outline"

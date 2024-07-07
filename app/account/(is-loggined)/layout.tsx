@@ -20,6 +20,7 @@ import { IoDocumentsOutline } from 'react-icons/io5';
 import { HiOutlineCurrencyEuro } from 'react-icons/hi2';
 import { ImProfile } from 'react-icons/im';
 import { VscTools } from 'react-icons/vsc';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 export default function AccountLayout({
   children,
@@ -28,18 +29,16 @@ export default function AccountLayout({
     //TODO auto resize nav width
     //TODO fixed nav on mobile
     //FIXME cannot close nav on mobile screen on /users
-    <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[230px_1fr]">
+    <div className="grid min-h-screen w-screen md:grid-cols-[220px_1fr] lg:grid-cols-[230px_1fr]">
       <div className="hidden border-r bg-muted/40 md:block">
         <div className="fixed flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
             <div className="grid grid-cols-[0.3fr_1fr] gap-x-2 ">
-              <Image
-                src="/images/user_avatar.jpg"
-                alt="user-avatar"
-                width={40}
-                height={40}
-                className="row-span-2 self-center"
-              />
+              <Avatar className="row-span-2">
+                <AvatarImage src="/images/user_avatar.jpg" alt="@shadcn" />
+                {/* TODO get users first letters for fallback */}
+                <AvatarFallback>AL</AvatarFallback>
+              </Avatar>
               <p className="font-semibold">Artem Lobastov</p>
               <p className="text-xs">Admin</p>
             </div>
@@ -103,7 +102,7 @@ export default function AccountLayout({
           </div>
         </div>
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col container">
         <header className=" flex h-14 items-center justify-between gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
           <Sheet>
             <SheetTrigger asChild>
@@ -126,6 +125,13 @@ export default function AccountLayout({
                     height={40}
                     className="row-span-2 self-center"
                   />
+                  <Avatar>
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="@shadcn"
+                    />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
                   <p className="font-semibold">Artem Lobastov</p>
                   <p className="text-xs">Admin</p>
                   <span className="sr-only">Account</span>
@@ -187,7 +193,7 @@ export default function AccountLayout({
           <BreadcrumbAccount />
           <ModeToggle />
         </header>
-        <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+        <main className="flex grow flex-1 flex-col gap-4 pt-3 lg:gap-6 ">
           {children}
         </main>
       </div>

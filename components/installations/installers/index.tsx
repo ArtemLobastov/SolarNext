@@ -9,10 +9,9 @@ export default function Installers() {
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="font-medium">Installers</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="">
         <InstallerInfo />
         <InstallersList />
-        <AddInstallerBtn />
       </CardContent>
     </Card>
   );
