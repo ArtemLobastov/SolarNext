@@ -69,3 +69,31 @@ export const userFormSchema = z
     path: ['confirmPassword'],
   });
 export type TUserFormSchema = z.infer<typeof userFormSchema>;
+
+//register job form schema
+export const jobRegisterFormSchema = z.object({
+  clientName: z.string({
+    required_error: 'Required',
+  }),
+  clientId: z.string(),
+  date: z.string({
+    required_error: 'Required',
+  }),
+  jobType: z.string({
+    required_error: 'Required',
+  }),
+  isPanels: z.boolean(),
+  isBattery: z.boolean(),
+  isBackup: z.boolean(),
+
+  photos: z.string({
+    required_error: 'Required',
+  }),
+  payment: z.string({
+    required_error: 'Required',
+  }),
+  // .refine((data) => data.password === data.confirmPassword, {
+  //   message: "Passwords don't match",
+  //   path: ['confirmPassword'],
+});
+export type TJobRegisterFormSchema = z.infer<typeof jobRegisterFormSchema>;
