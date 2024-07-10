@@ -50,6 +50,7 @@ import {
 import { IUser, users as data } from '@/lib/usersDB';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import SaveXmlBtn from '@/components/ui/save-xml-btn';
 export const columns: ColumnDef<IUser>[] = [
   {
     accessorKey: 'avatarSrc',
@@ -292,6 +293,7 @@ export default function UserList({
             <Plus className=" h-4 w-4 mr-2" /> Add User
           </Button>
         )}
+        <SaveXmlBtn table={table} fileName={'user-list'} />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">

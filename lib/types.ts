@@ -76,7 +76,7 @@ export const jobRegisterFormSchema = z.object({
     required_error: 'Required',
   }),
   clientId: z.string(),
-  date: z.string({
+  date: z.date({
     required_error: 'Required',
   }),
   jobType: z.string({
@@ -89,9 +89,7 @@ export const jobRegisterFormSchema = z.object({
   photos: z.string({
     required_error: 'Required',
   }),
-  payment: z.string({
-    required_error: 'Required',
-  }),
+
   // .refine((data) => data.password === data.confirmPassword, {
   //   message: "Passwords don't match",
   //   path: ['confirmPassword'],

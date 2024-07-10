@@ -6,16 +6,15 @@ import { Input } from '@/components/ui/input';
 import { useRef, useState } from 'react';
 import { useFormState } from 'react-dom';
 import { CalendarIcon, Loader2 } from 'lucide-react';
-import { ActionResult, createUserAction } from '@/lib/actions';
+import {
+  ActionResult,
+  createUserAction,
+  jobRegisterFormAction,
+} from '@/lib/actions';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import {
-  TUserFormSchema,
-  userFormSchema,
-  TJobRegisterFormSchema,
-  jobRegisterFormSchema,
-} from '@/lib/types';
+import { TJobRegisterFormSchema, jobRegisterFormSchema } from '@/lib/types';
 import {
   Form,
   FormControl,
@@ -36,9 +35,16 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { format } from 'date-fns';
 import { Calendar } from '../ui/calendar';
 import { cn } from '@/lib/utils';
+import { Separator } from '../ui/separator';
 
-export default function AddFinishedInstallationForm() {
-  const [state, action] = useFormState<any, any>(createUserAction, {
+export default function AddFinishedInstallationForm({
+  setShowFinishedJobForm,
+}: {
+  setShowFinishedJobForm: (
+    value: boolean | ((prevVar: boolean) => boolean)
+  ) => void;
+}) {
+  const [state, action] = useFormState<any, any>(jobRegisterFormAction, {
     message: '',
   });
   const [jobType, setJobType] = useState<
@@ -55,16 +61,15 @@ export default function AddFinishedInstallationForm() {
       isPanels: true,
       isBattery: true,
       isBackup: true,
-      date: '',
-      photos: '',
-      payment: '',
+      date: new Date(),
+      photos: '/photo.jpg',
     },
   });
   const formRef = useRef<HTMLFormElement>(null);
   const onSubmit: SubmitHandler<TJobRegisterFormSchema> = async (data) => {
     setIsPending(true);
     try {
-      const result: ActionResult = await createUserAction(state, data);
+      const result: ActionResult = await jobRegisterFormAction(state, data);
       if (result.message === 'Success') {
         toast({
           title: 'Success',
@@ -73,7 +78,7 @@ export default function AddFinishedInstallationForm() {
           duration: 3000,
         });
         form.reset();
-        // setShowAddUser(false);
+        setShowFinishedJobForm(false);
         //TODO close the form
       } else {
         toast({
@@ -212,8 +217,8 @@ export default function AddFinishedInstallationForm() {
             <FormItem>
               <FormLabel>Panels</FormLabel>
               <FormControl>
-                <>
-                  <div className="flex items-center space-x-2">
+                <div className=" flex flex-col gap-5">
+                  <div className="flex items-center space-x-2 ">
                     <Label>No</Label>
 
                     <Switch
@@ -233,12 +238,13 @@ export default function AddFinishedInstallationForm() {
                   <Input id="panelsLayoutPicture" type="file" />
                   <Label>Frame photo</Label>
                   <Input id="framePhoto" type="file" />
-                </>
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+        <Separator />
         {/* Batteries toggle */}
         <FormField
           control={form.control}
@@ -267,6 +273,8 @@ export default function AddFinishedInstallationForm() {
             </FormItem>
           )}
         />
+        <Separator />
+
         {/* Backup toggle */}
         <FormField
           control={form.control}
@@ -286,7 +294,7 @@ export default function AddFinishedInstallationForm() {
                   </div>
                   <Label>Installed backup photo</Label>
                   <Input id="backupPhoto" type="file" />
-                  <Label>backup barcode photo</Label>
+                  <Label>Backup barcode photo</Label>
                   <Input id="batteryBarcodePhoto" type="file" />
                 </>
               </FormControl>
@@ -309,7 +317,7 @@ export default function AddFinishedInstallationForm() {
           className="w-full"
           disabled={isPending}
           onClick={() => {
-            // setShowAddUser(false);
+            setShowFinishedJobForm(false);
           }}
         >
           {!isPending ? 'Cancel' : <Loader2 className=" animate-spin" />}

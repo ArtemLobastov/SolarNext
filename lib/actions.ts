@@ -3,6 +3,7 @@ import { revalidatePath } from 'next/cache';
 
 import {
   TUserFormSchema,
+  jobRegisterFormSchema,
   leadFormSchema,
   loginSchema,
   userFormSchema,
@@ -123,6 +124,37 @@ export async function editUserAction(
   console.log(data);
   //revalidate path
   revalidatePath('/account/dashboard/users');
+  return {
+    message: 'Success',
+  };
+}
+
+export async function jobRegisterFormAction(
+  prevState: ActionResult,
+  data: {
+    clientName: string;
+    clientId: string;
+    jobType: string;
+    isPanels: boolean;
+    isBattery: boolean;
+    isBackup: boolean;
+    date: Date;
+    photos: string;
+  }
+): Promise<ActionResult> {
+  //validate data with zod
+  const parsedResult = jobRegisterFormSchema.safeParse(data);
+  if (!parsedResult.success) {
+    return { message: parsedResult.error.toString() };
+  }
+  //Special server validation check
+
+  // //TODO: if ok - save data to DB
+  //TODO: format data? import { format } from 'date-fns';
+
+  console.log(data);
+  //revalidate path
+  revalidatePath('/account/dashboard/installations');
   return {
     message: 'Success',
   };

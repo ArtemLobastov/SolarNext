@@ -1,14 +1,12 @@
 'use client';
 import { Job, jobsDataDummyList as data } from '@/lib/jobsDB';
-
-type JobsListProps = {
-  jobs: Job[];
-};
+import { mkConfig, generateCsv, download } from 'export-to-csv';
 
 import * as React from 'react';
 import {
   ColumnDef,
   ColumnFiltersState,
+  Row,
   SortingState,
   VisibilityState,
   flexRender,
@@ -24,6 +22,7 @@ import {
   FilterIcon,
   MoreHorizontal,
   Plus,
+  SaveIcon,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -48,10 +47,12 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { clientsListData, TClientPersonalInfo } from '@/lib/clientsDB';
-import { IoClose } from 'react-icons/io5';
 import AddJobBtn from './AddJobBtn';
+import SaveXmlBtn from '@/components/ui/save-xml-btn';
 
+type JobsListProps = {
+  jobs: Job[];
+};
 export const columns: ColumnDef<Job>[] = [
   {
     accessorKey: 'date',
@@ -239,7 +240,20 @@ export function FilterOptionsDropdownMenu({
     </DropdownMenu>
   );
 }
+
 export default function JobsList({ jobs }: { jobs: Job[] }) {
+  const csvConfig = mkConfig({
+    fieldSeparator: ',',
+    filename: 'schedule',
+    decimalSeparator: '.',
+    useKeysAsHeaders: true,
+  });
+  const exportExcel = (rows: Row<any>[]) => {
+    const rowData = rows.map((row) => row.original);
+    const csv = generateCsv(csvConfig)(rowData);
+    download(csvConfig)(csv);
+  };
+
   const [filter, setFilter] = React.useState<string>('clientName');
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -270,6 +284,7 @@ export default function JobsList({ jobs }: { jobs: Job[] }) {
       rowSelection,
     },
   });
+  const a = typeof table;
   //TODO filters reset
   function filterChangeResetHandler(): void {
     table.getColumn('clientName')?.setFilterValue('');
@@ -294,7 +309,9 @@ export default function JobsList({ jobs }: { jobs: Job[] }) {
           onReset={filterChangeResetHandler}
         />
         <AddJobBtn />
-        {/* TODO download exel Btn */}
+
+        {/* download exel Btn */}
+        <SaveXmlBtn table={table} fileName="schedule" />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
