@@ -10,7 +10,6 @@ export default function WarrantyCases() {
       </CardHeader>
       <CardContent>
         <WarrantyCasesList />
-        <WarrantyCaseAddBtn />
       </CardContent>
     </Card>
   );
