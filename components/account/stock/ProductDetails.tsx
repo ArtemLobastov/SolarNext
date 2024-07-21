@@ -1,19 +1,6 @@
+'use client';
 import Image from 'next/image';
-import Link from 'next/link';
-import {
-  ChevronLeft,
-  Home,
-  LineChart,
-  Package,
-  Package2,
-  PanelLeft,
-  PlusCircle,
-  Search,
-  Settings,
-  ShoppingCart,
-  Upload,
-  Users2,
-} from 'lucide-react';
+import { ChevronLeft, Upload } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -43,9 +30,10 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Textarea } from '@/components/ui/textarea';
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { useState } from 'react';
 
 export function ProductDetails() {
+  const [isEditing, setIsEditing] = useState(false);
   return (
     <Card className="grid flex-1 items-start gap-4 p-4 bg-muted  md:gap-8">
       <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
@@ -61,10 +49,28 @@ export function ProductDetails() {
             In stock
           </Badge>
           <div className="hidden items-center gap-2 md:ml-auto md:flex">
-            <Button variant="outline" size="sm">
-              Discard
-            </Button>
-            <Button size="sm">Save Product</Button>
+            {!isEditing ? (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setIsEditing(true)}
+              >
+                Edit product
+              </Button>
+            ) : (
+              <>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setIsEditing(false)}
+                >
+                  Discard
+                </Button>
+                <Button size="sm" onClick={() => setIsEditing(false)}>
+                  Save Product
+                </Button>
+              </>
+            )}
           </div>
         </div>
         <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
@@ -85,6 +91,17 @@ export function ProductDetails() {
                       type="text"
                       className="w-full"
                       defaultValue="SolarEdge SE3680H"
+                      disabled={!isEditing}
+                    />
+                  </div>
+                  <div className="grid gap-3">
+                    <Label htmlFor="id">Id</Label>
+                    <Input
+                      id="id"
+                      type="text"
+                      className="w-full"
+                      defaultValue="GGPC-001"
+                      disabled={!isEditing}
                     />
                   </div>
                   <div className="grid gap-3">
@@ -93,6 +110,7 @@ export function ProductDetails() {
                       id="description"
                       defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl nec ultricies ultricies, nunc nisl ultricies nunc, nec ultricies nunc nisl nec nunc."
                       className="min-h-32"
+                      disabled={!isEditing}
                     />
                   </div>
                 </div>
@@ -101,9 +119,6 @@ export function ProductDetails() {
             <Card x-chunk="dashboard-07-chunk-1">
               <CardHeader>
                 <CardTitle>Stock</CardTitle>
-                <CardDescription>
-                  Lipsum dolor sit amet, consectetur adipiscing elit
-                </CardDescription>
               </CardHeader>
               <CardContent>
                 <Table>
@@ -112,7 +127,6 @@ export function ProductDetails() {
                       <TableHead className="w-[100px]">id</TableHead>
                       <TableHead>Stock</TableHead>
                       <TableHead>Price</TableHead>
-                      <TableHead className="w-[100px]">Size</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -122,7 +136,12 @@ export function ProductDetails() {
                         <Label htmlFor="stock-1" className="sr-only">
                           Stock
                         </Label>
-                        <Input id="stock-1" type="number" defaultValue="100" />
+                        <Input
+                          id="stock-1"
+                          type="number"
+                          defaultValue="100"
+                          disabled={!isEditing}
+                        />
                       </TableCell>
                       <TableCell>
                         <Label htmlFor="price-1" className="sr-only">
@@ -132,18 +151,8 @@ export function ProductDetails() {
                           id="price-1"
                           type="number"
                           defaultValue="99.99"
+                          disabled={!isEditing}
                         />
-                      </TableCell>
-                      <TableCell>
-                        <ToggleGroup
-                          type="single"
-                          defaultValue="s"
-                          variant="outline"
-                        >
-                          <ToggleGroupItem value="s">S</ToggleGroupItem>
-                          <ToggleGroupItem value="m">M</ToggleGroupItem>
-                          <ToggleGroupItem value="l">L</ToggleGroupItem>
-                        </ToggleGroup>
                       </TableCell>
                     </TableRow>
                   </TableBody>
@@ -159,9 +168,9 @@ export function ProductDetails() {
                 <div className="grid gap-6 sm:grid-cols-3">
                   <div className="grid gap-3">
                     <Label htmlFor="category">Category</Label>
-                    <Select>
+                    <Select defaultValue="inverters" disabled={!isEditing}>
                       <SelectTrigger id="category" aria-label="Select category">
-                        <SelectValue placeholder="Select category" />
+                        <SelectValue placeholder={'Select category'} />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="frame">Frame</SelectItem>
@@ -174,9 +183,8 @@ export function ProductDetails() {
                     </Select>
                   </div>
                   <div className="grid gap-3">
-                    {/* TODO add subcatedories */}
                     <Label htmlFor="subcategory">Subcategory </Label>
-                    <Select>
+                    <Select defaultValue="1 phase" disabled={!isEditing}>
                       <SelectTrigger
                         id="subcategory"
                         aria-label="Select subcategory"
@@ -184,9 +192,8 @@ export function ProductDetails() {
                         <SelectValue placeholder="Select subcategory" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="t-shirts">T-Shirts</SelectItem>
-                        <SelectItem value="hoodies">Hoodies</SelectItem>
-                        <SelectItem value="sweatshirts">Sweatshirts</SelectItem>
+                        <SelectItem value="1 phase">1 phase</SelectItem>
+                        <SelectItem value="3 phase">3 phase</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -203,7 +210,7 @@ export function ProductDetails() {
                 <div className="grid gap-6">
                   <div className="grid gap-3">
                     <Label htmlFor="status">Status</Label>
-                    <Select>
+                    <Select disabled={!isEditing} defaultValue="in stock">
                       <SelectTrigger id="status" aria-label="Select status">
                         <SelectValue placeholder="Select status" />
                       </SelectTrigger>
@@ -242,28 +249,28 @@ export function ProductDetails() {
                       />
                     </button>
 
-                    <button className="flex aspect-square w-full items-center justify-center rounded-md border border-dashed">
-                      <Upload className="h-4 w-4 text-muted-foreground" />
-                      <span className="sr-only">Upload</span>
-                    </button>
+                    {isEditing && (
+                      <button className="flex aspect-square w-full items-center justify-center rounded-md border border-dashed">
+                        <Upload className="h-4 w-4 text-muted-foreground" />
+                        <span className="sr-only">Upload</span>
+                      </button>
+                    )}
                   </div>
                 </div>
               </CardContent>
             </Card>
-            <Card x-chunk="dashboard-07-chunk-5">
-              <CardHeader>
-                <CardTitle>Archive Product</CardTitle>
-                <CardDescription>
-                  Lipsum dolor sit amet, consectetur adipiscing elit.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div></div>
-                <Button size="sm" variant="secondary">
-                  Archive Product
-                </Button>
-              </CardContent>
-            </Card>
+            {isEditing && (
+              <Card x-chunk="dashboard-07-chunk-5">
+                <CardHeader>
+                  <CardTitle>Archive Product</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <Button size="sm" variant="secondary">
+                    Archive Product
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
           </div>
         </div>
         <div className="flex items-center justify-center gap-2 md:hidden">

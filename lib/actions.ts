@@ -39,7 +39,6 @@ export async function loginAction(
   data: FormData
 ): Promise<ActionResult> {
   const formData = Object.fromEntries(data);
-  await new Promise((res) => setTimeout(res, 1000));
   //validate data with zod
   const parsedResult = loginSchema.safeParse(formData);
   if (!parsedResult.success) {
@@ -70,8 +69,6 @@ export async function createUserAction(
     registered: Date;
   }
 ): Promise<ActionResult> {
-  //TODO remove timer
-  await new Promise((res) => setTimeout(res, 1000));
   //validate data with zod
   const parsedResult = userFormSchema.safeParse(data);
   if (!parsedResult.success) {
@@ -106,8 +103,6 @@ export async function editUserAction(
     registered: Date;
   }
 ): Promise<ActionResult> {
-  //TODO remove timer
-  await new Promise((res) => setTimeout(res, 1000));
   //validate data with zod
   const parsedResult = userFormSchema.safeParse(data);
   if (!parsedResult.success) {

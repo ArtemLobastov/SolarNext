@@ -8,7 +8,6 @@ export default function ClientsPage() {
   return (
     <main className="flex flex-col gap-3 pt-3">
       <StockList />
-      {/* TODO ADD product form */}
       <Button variant={'outline'} size={'lg'} className="bg-muted">
         + Add new product
       </Button>
