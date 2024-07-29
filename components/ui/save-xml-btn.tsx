@@ -1,4 +1,4 @@
-import { SaveIcon } from 'lucide-react';
+import { Download } from 'lucide-react';
 import { Button } from './button';
 import { mkConfig, generateCsv, download } from 'export-to-csv';
 import { Row } from '@tanstack/react-table';
@@ -16,8 +16,10 @@ export default function SaveXmlBtn({
     decimalSeparator: '.',
     useKeysAsHeaders: true,
   });
+  //TODO fix xml export of sales table
   const exportExcel = (rows: Row<any>[]) => {
     const rowData = rows.map((row) => row.original);
+    console.log(rowData.map((row) => row.date.toLocaleDateString()));
     const csv = generateCsv(csvConfig)(rowData);
     download(csvConfig)(csv);
   };
@@ -27,8 +29,8 @@ export default function SaveXmlBtn({
       variant={'outline'}
       onClick={() => exportExcel(table.getFilteredRowModel().rows)}
     >
-      <SaveIcon className="h-4 w-4 mr-2" />
-      EXEL
+      <Download className="h-4 w-4 mr-2" />
+      Export
     </Button>
   );
 }

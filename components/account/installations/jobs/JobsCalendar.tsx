@@ -24,7 +24,6 @@ type JobsCalendarProps = {
 export default function JobsCalendar({ jobs }: JobsCalendarProps) {
   const jobsDays = jobs.map((job) => new Date(job.date));
 
-  //TODO styling of booked days
   const [date, setDate] = useState<Date | undefined>(new Date());
 
   return (

@@ -5,7 +5,7 @@ import JobsList from './JobsList';
 import { jobsDataDummyList } from '@/lib/jobsDB';
 export default function Jobs() {
   return (
-    <Card className="grid ">
+    <Card className="grid dark:bg-primary-foreground">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className=" font-medium">Jobs</CardTitle>
       </CardHeader>

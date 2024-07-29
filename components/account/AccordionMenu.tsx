@@ -10,7 +10,7 @@ import { HiOutlineCurrencyEuro } from 'react-icons/hi2';
 import { ImProfile } from 'react-icons/im';
 import { VscTools } from 'react-icons/vsc';
 import { IoDocumentsOutline } from 'react-icons/io5';
-import { MdOutlineSpaceDashboard } from 'react-icons/md';
+import { MdDashboard, MdOutlineSpaceDashboard } from 'react-icons/md';
 
 import Link from 'next/link';
 
@@ -20,7 +20,8 @@ export default function AccordionMenu() {
       <Accordion type="single" collapsible className="w-full ">
         <AccordionItem value="item-0">
           <div className="flex gap-2 items-center">
-            <MdOutlineSpaceDashboard />
+            <MdDashboard />
+            {/* <MdOutlineSpaceDashboard /> */}
             <Link href={'/account/dashboard'}>
               <p className="py-4 font-medium hover:underline">Dashboard</p>
             </Link>

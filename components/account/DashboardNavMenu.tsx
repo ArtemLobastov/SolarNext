@@ -22,6 +22,7 @@ import { HiOutlineCurrencyEuro } from 'react-icons/hi2';
 import { ImProfile } from 'react-icons/im';
 import { VscTools } from 'react-icons/vsc';
 import Image from 'next/image';
+import { MdDashboard } from 'react-icons/md';
 
 export function Dashboard() {
   return (
@@ -47,7 +48,7 @@ export function Dashboard() {
                 href="/account/dashboard"
                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
               >
-                <Home className="h-4 w-4" />
+                <MdDashboard className="h-4 w-4" />
                 Dashboard
               </Link>
               <Link

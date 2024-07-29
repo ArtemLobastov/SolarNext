@@ -4,11 +4,13 @@ import {
   CircleUser,
   Home,
   LineChart,
+  LogOut,
   Menu,
   Package,
   Package2,
   ShoppingCart,
   Users,
+  Users2,
 } from 'lucide-react';
 import { BreadcrumbAccount } from '@/components/account/BreadCrumbs';
 import Heading from '@/components/account/Heading';
@@ -16,11 +18,12 @@ import { ModeToggle } from '@/components/ui/darkmode-btn';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { IoDocumentsOutline } from 'react-icons/io5';
+import { IoDocumentsOutline, IoLogOut } from 'react-icons/io5';
 import { HiOutlineCurrencyEuro } from 'react-icons/hi2';
 import { ImProfile } from 'react-icons/im';
 import { VscTools } from 'react-icons/vsc';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { MdDashboard } from 'react-icons/md';
 
 export default function AccountLayout({
   children,
@@ -49,7 +52,7 @@ export default function AccountLayout({
                 href="/account/dashboard"
                 className="active:bg-muted active:text-primary  flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
               >
-                <Home className="h-4 w-4" />
+                <MdDashboard className="h-4 w-4" />
                 Dashboard
               </Link>
               <Link
@@ -63,7 +66,7 @@ export default function AccountLayout({
                 href="/account/dashboard/clients"
                 className="active:bg-muted active:text-primary  flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
               >
-                <ImProfile className="h-4 w-4" />
+                <Users2 className="h-4 w-4" />
                 Clients
               </Link>
               <Link
@@ -96,7 +99,13 @@ export default function AccountLayout({
                 Users
               </Link>
               <Button className="mt-10" variant={'outline'} asChild>
-                <Link href={'/auth'}>Logout</Link>
+                <Link
+                  href={'/auth'}
+                  className="active:bg-muted active:text-primary  flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                >
+                  <LogOut className="h-4 w-4" />
+                  Logout
+                </Link>
               </Button>
             </nav>
           </div>
