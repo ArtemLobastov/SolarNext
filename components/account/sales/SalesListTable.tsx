@@ -1,6 +1,7 @@
 'use client';
 //TODO dates range filter
 //TODO active sale state
+
 import * as React from 'react';
 import {
   ColumnDef,
@@ -45,6 +46,8 @@ import {
 } from '@/components/ui/table';
 import { salesDummyData as data, Sale } from '@/lib/salesDB';
 import SaveXmlBtn from '@/components/ui/save-xml-btn';
+import { Badge } from '@/components/ui/badge';
+import clsx from 'clsx';
 
 export const columns: ColumnDef<Sale>[] = [
   {
@@ -86,6 +89,44 @@ export const columns: ColumnDef<Sale>[] = [
     cell: ({ row }) => (
       <div className="capitalize">{row.getValue('clientName')}</div>
     ),
+  },
+  {
+    accessorKey: 'status',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Status
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: (row: any) => {
+      const status = row.getValue('status');
+      const badgeColors: { [key: string]: string } = {
+        new: 'yellow',
+        deposit: 'blue',
+        paid: 'green',
+      };
+      const activeStatusColor = badgeColors[status];
+      // bg-yellow-200 hover:bg-yellow-300
+      // bg-blue-200 hover:bg-blue-300
+      // bg-green-200 hover:bg-green-300
+
+      return (
+        <Badge
+          className={clsx(
+            'capitalize text-black',
+            activeStatusColor && `bg-${activeStatusColor}-200`,
+            activeStatusColor && `hover:bg-${activeStatusColor}-300`
+          )}
+        >
+          {row.getValue('status')}
+        </Badge>
+      );
+    },
   },
   {
     accessorKey: 'priceTotal',
@@ -142,6 +183,8 @@ export type TFilterOptionsDropdownMenuProps = {
   setFilter: (filter: string) => void;
   onReset: () => void;
 };
+
+//FIXME filter option displaying
 export function FilterOptionsDropdownMenu({
   filter,
   setFilter,

@@ -1,5 +1,5 @@
 import { unknown } from 'zod';
-
+type SaleStatus = 'new' | 'deposit' | 'paid';
 type ProductSold = {
   productId: string;
   productName: string;
@@ -8,6 +8,7 @@ type ProductSold = {
 };
 export type Sale = {
   date: Date;
+
   saleId: string;
   clientId?: string;
   clientName?: string;
@@ -15,11 +16,13 @@ export type Sale = {
   sellerName?: string;
   productsSold: ProductSold[];
   priceTotal: number;
+  status: SaleStatus;
 };
 export const salesDummyData: Sale[] = [
   {
     date: new Date('2024-07-15'),
     saleId: 'S001',
+    status: 'new',
     clientId: 'C001',
     clientName: 'Marija Borg',
     sellerId: 'SE001',
@@ -49,6 +52,7 @@ export const salesDummyData: Sale[] = [
   {
     date: new Date('2024-07-18'),
     saleId: 'S002',
+    status: 'deposit',
     clientId: 'C002',
     clientName: 'Joseph Camilleri',
     sellerId: 'SE002',
@@ -72,6 +76,7 @@ export const salesDummyData: Sale[] = [
   {
     date: new Date('2024-07-20'),
     saleId: 'S003',
+    status: 'paid',
     clientName: 'Carmen Vella',
     sellerId: 'SE003',
     sellerName: 'Brendan',
@@ -100,6 +105,7 @@ export const salesDummyData: Sale[] = [
   {
     date: new Date('2024-07-22'),
     saleId: 'S004',
+    status: 'new',
     clientId: 'C003',
     clientName: 'Paul Zammit',
     sellerId: 'SE001',
@@ -123,6 +129,7 @@ export const salesDummyData: Sale[] = [
   {
     date: new Date('2024-07-25'),
     saleId: 'S005',
+    status: 'deposit',
     clientId: 'C004',
     clientName: 'Rita Farrugia',
     sellerId: 'SE002',
@@ -158,6 +165,7 @@ export const salesDummyData: Sale[] = [
   {
     date: new Date('2024-07-28'),
     saleId: 'S006',
+    status: 'deposit',
     clientName: 'John Micallef',
     sellerId: 'SE003',
     sellerName: 'Brendan',
@@ -180,6 +188,7 @@ export const salesDummyData: Sale[] = [
   {
     date: new Date('2024-08-01'),
     saleId: 'S007',
+    status: 'new',
     clientId: 'C005',
     clientName: 'Anna Galea',
     sellerId: 'SE001',
@@ -215,6 +224,7 @@ export const salesDummyData: Sale[] = [
   {
     date: new Date('2024-08-03'),
     saleId: 'S008',
+    status: 'deposit',
     clientId: 'C006',
     clientName: 'George Spiteri',
     sellerId: 'SE002',
@@ -244,6 +254,7 @@ export const salesDummyData: Sale[] = [
   {
     date: new Date('2024-08-05'),
     saleId: 'S009',
+    status: 'paid',
     clientName: 'Maria Attard',
     sellerId: 'SE003',
     sellerName: 'Brendan',
@@ -266,6 +277,7 @@ export const salesDummyData: Sale[] = [
   {
     date: new Date('2024-08-08'),
     saleId: 'S010',
+    status: 'new',
     clientId: 'C007',
     clientName: 'David Grech',
     sellerId: 'SE001',

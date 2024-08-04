@@ -199,7 +199,7 @@ export default function AccountLayout({
             </SheetContent>
           </Sheet>
           <Heading />
-          <BreadcrumbAccount />
+          {/* <BreadcrumbAccount /> */}
           <ModeToggle />
         </header>
         <main className="flex grow flex-1 flex-col gap-4 pt-3 lg:gap-6 ">
