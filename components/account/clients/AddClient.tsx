@@ -21,11 +21,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
-import NotesTextArea from './NotesTextArea';
+import NotesTextArea from '../NotesTextArea';
 import { TClient } from '@/lib/clientsDB';
-import { Separator } from '../ui/separator';
+import { Separator } from '../../ui/separator';
 import { MdCancel } from 'react-icons/md';
-import { Input } from '../ui/input';
+import { Input } from '../../ui/input';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
 

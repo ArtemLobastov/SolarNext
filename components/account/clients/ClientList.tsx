@@ -45,7 +45,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { clientsListData as data, TClientPersonalInfo } from '@/lib/clientsDB';
 import { IoClose } from 'react-icons/io5';
-import SaveXmlBtn from '../ui/save-xml-btn';
+import SaveXmlBtn from '@/components/ui/save-xml-btn';
 
 export const columns: ColumnDef<TClientPersonalInfo>[] = [
   {

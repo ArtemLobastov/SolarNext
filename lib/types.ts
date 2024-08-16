@@ -1,5 +1,5 @@
 import { z } from 'zod';
-
+import { ProductSold } from './salesDB';
 //lead form schema
 export const leadFormSchema = z.object({
   firstName: z
@@ -95,3 +95,30 @@ export const jobRegisterFormSchema = z.object({
   //   path: ['confirmPassword'],
 });
 export type TJobRegisterFormSchema = z.infer<typeof jobRegisterFormSchema>;
+
+//Add sale form schema
+export const addSaleFormSchema = z.object({
+  clientName: z
+    .string({
+      required_error: 'Required',
+    })
+    .min(3, 'Must be at least 3 characters'),
+  id: z.string(),
+  address: z.string(),
+  registered: z.date(),
+  status: z.string(),
+
+  email: z.string().email(),
+  phone: z
+    .string()
+    .regex(/^\+?[0-9\s\-().]{7,15}$/, 'Invalid phone Number Format'),
+  productsSold: z
+    .object({
+      productName: z.string(),
+      quantity: z.number(),
+      price: z.number(),
+    })
+    .array(),
+  agent: z.string(),
+});
+export type TAddSaleFormSchema = z.infer<typeof addSaleFormSchema>;

@@ -16,10 +16,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-
-import NotesTextArea from './NotesTextArea';
 import { TClient } from '@/lib/clientsDB';
-import { Separator } from '../ui/separator';
+import { Separator } from '@/components/ui/separator';
+import NotesTextArea from '../NotesTextArea';
+
 export default function ClientCard({
   activeClient,
 }: {

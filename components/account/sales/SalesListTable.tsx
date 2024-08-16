@@ -1,8 +1,7 @@
 'use client';
 //TODO dates range filter
 //TODO active sale state
-
-import * as React from 'react';
+import { useState } from 'react';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -185,6 +184,7 @@ export type TFilterOptionsDropdownMenuProps = {
 };
 
 //FIXME filter option displaying
+//TODO date range filter
 export function FilterOptionsDropdownMenu({
   filter,
   setFilter,
@@ -215,23 +215,18 @@ export function FilterOptionsDropdownMenu({
   );
 }
 export default function SalesListTable({
-  setActiveClientId,
-  setAddingClient,
-  addingClient,
+  setAddingSale,
+  addingSale,
 }: {
-  setActiveClientId: (prev: string) => void;
-  setAddingClient: (value: boolean | ((prevVar: boolean) => boolean)) => void;
-  addingClient: boolean;
+  setAddingSale: (value: boolean | ((prevVar: boolean) => boolean)) => void;
+  addingSale: boolean;
 }) {
-  const [filter, setFilter] = React.useState<string>('clientName');
+  const [filter, setFilter] = useState<string>('clientName');
 
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
     data,
@@ -275,11 +270,11 @@ export default function SalesListTable({
           setFilter={setFilter}
           onReset={filterChangeResetHandler}
         />
-        {!addingClient && (
+        {!addingSale && (
           <Button
             variant="outline"
             className="mr-auto"
-            onClick={() => setAddingClient((state) => !state)}
+            onClick={() => setAddingSale((state) => !state)}
           >
             <Plus className=" h-4 w-4 mr-2" /> Add Sale
           </Button>

@@ -1,11 +1,12 @@
-import { unknown } from 'zod';
-type SaleStatus = 'new' | 'deposit' | 'paid';
-type ProductSold = {
-  productId: string;
-  productName: string;
-  quantity: number;
-  price: number;
-};
+export type SaleStatus = string;
+export type ProductSold =
+  | {
+      productId?: string;
+      productName: string;
+      quantity: number;
+      price: number;
+    }
+  | undefined;
 export type Sale = {
   date: Date;
 
@@ -14,7 +15,7 @@ export type Sale = {
   clientName?: string;
   sellerId: string;
   sellerName?: string;
-  productsSold: ProductSold[];
+  productsSold?: ProductSold[];
   priceTotal: number;
   status: SaleStatus;
 };

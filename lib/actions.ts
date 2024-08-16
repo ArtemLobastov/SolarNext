@@ -3,11 +3,13 @@ import { revalidatePath } from 'next/cache';
 
 import {
   TUserFormSchema,
+  addSaleFormSchema,
   jobRegisterFormSchema,
   leadFormSchema,
   loginSchema,
   userFormSchema,
 } from './types';
+import { ProductSold, SaleStatus } from './salesDB';
 
 export interface ActionResult {
   message: string;
@@ -150,6 +152,45 @@ export async function jobRegisterFormAction(
   console.log(data);
   //revalidate path
   revalidatePath('/account/dashboard/installations');
+  return {
+    message: 'Success',
+  };
+}
+// ADD SALE
+export async function addSaleAction(
+  prevState: ActionResult,
+  data: {
+    id: string;
+    productsSold: ProductSold[];
+    clientName: string;
+    address: string;
+    email: string;
+    phone: string;
+    status: SaleStatus;
+    registered: Date;
+    agent: string;
+  }
+): Promise<ActionResult> {
+  // Sleep 1s
+  // await new Promise<void>((res) => {
+  //   setTimeout(res, 1000);
+  // });
+
+  //validate data with zod
+  const parsedResult = addSaleFormSchema.safeParse(data);
+  if (!parsedResult.success) {
+    return { message: parsedResult.error.toString() };
+  }
+  //Special server validation check
+  if (parsedResult.data.email.includes('a')) {
+    return { message: 'Custom server error(email has letter A)' };
+  }
+  // //TODO: if ok - save data to DB
+  //TODO: format data? import { format } from 'date-fns';
+
+  console.log(data);
+  //revalidate path
+  revalidatePath('/account/dashboard/sales');
   return {
     message: 'Success',
   };

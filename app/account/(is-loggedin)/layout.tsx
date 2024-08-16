@@ -5,6 +5,7 @@ import {
   Home,
   LineChart,
   LogOut,
+  Megaphone,
   Menu,
   Package,
   Package2,
@@ -18,12 +19,23 @@ import { ModeToggle } from '@/components/ui/darkmode-btn';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { IoDocumentsOutline, IoLogOut } from 'react-icons/io5';
+import {
+  IoDocumentsOutline,
+  IoLogOut,
+  IoMegaphoneOutline,
+} from 'react-icons/io5';
 import { HiOutlineCurrencyEuro } from 'react-icons/hi2';
 import { ImProfile } from 'react-icons/im';
 import { VscTools } from 'react-icons/vsc';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { MdDashboard } from 'react-icons/md';
+import { MdDashboard, MdSocialDistance } from 'react-icons/md';
+import {
+  BsGraphDownArrow,
+  BsGraphUp,
+  BsGraphUpArrow,
+  BsMarkerTip,
+  BsSortNumericUpAlt,
+} from 'react-icons/bs';
 
 export default function AccountLayout({
   children,
@@ -97,6 +109,13 @@ export default function AccountLayout({
               >
                 <CircleUser className="h-4 w-4" />
                 Users
+              </Link>
+              <Link
+                href="/account/dashboard/marketing"
+                className="active:bg-muted active:text-primary  flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+              >
+                <BsGraphUpArrow className="h-4 w-4" />
+                Marketing
               </Link>
               <Button className="mt-10" variant={'outline'} asChild>
                 <Link

@@ -1,12 +1,9 @@
 'use client';
-import { BreadcrumbAccount } from '@/components/account/BreadCrumbs';
-import ClientCard from '@/components/account/ClientCard';
-import ClientList from '@/components/account/ClientList';
-
-import { ModeToggle } from '@/components/ui/darkmode-btn';
 import { useState } from 'react';
 import { testClientListData } from '@/lib/clientsDB';
-import AddClient from '@/components/account/AddClient';
+import AddClient from '@/components/account/clients/AddClient';
+import ClientCard from '@/components/account/clients/ClientCard';
+import ClientList from '@/components/account/clients/ClientList';
 
 export default function ClientsPage() {
   const [addingClient, setAddingClient] = useState<boolean>(false);
