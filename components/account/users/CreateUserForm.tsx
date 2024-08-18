@@ -10,7 +10,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { format } from 'date-fns';
-import { TUserFormSchema, userFormSchema } from '@/lib/types';
+import { TUserFormSchema, userFormSchema } from '@/lib/zod/schemas-types';
 import {
   Form,
   FormControl,

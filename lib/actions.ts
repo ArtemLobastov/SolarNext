@@ -2,13 +2,12 @@
 import { revalidatePath } from 'next/cache';
 
 import {
-  TUserFormSchema,
   addSaleFormSchema,
   jobRegisterFormSchema,
   leadFormSchema,
   loginSchema,
   userFormSchema,
-} from './types';
+} from './zod/schemas-types';
 import { ProductSold, SaleStatus } from './salesDB';
 
 export interface ActionResult {

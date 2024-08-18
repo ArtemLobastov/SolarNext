@@ -1,6 +1,6 @@
 'use client';
 import { useForm } from 'react-hook-form';
-import { TloginSchema, loginSchema } from '@/lib/types';
+import { TloginSchema, loginSchema } from '@/lib/zod/schemas-types';
 import {
   Form,
   FormControl,

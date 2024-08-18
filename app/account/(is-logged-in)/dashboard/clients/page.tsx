@@ -15,6 +15,7 @@ export default function ClientsPage() {
   return (
     <main className="flex flex-col gap-3 pt-3">
       {activeClient && <ClientCard activeClient={activeClient} />}
+
       {addingClient && <AddClient setAddingClient={setAddingClient} />}
       <ClientList
         addingClient={addingClient}

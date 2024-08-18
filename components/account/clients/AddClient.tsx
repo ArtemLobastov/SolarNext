@@ -36,7 +36,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { TPaymentMethod } from '@/lib/types';
+import { TPaymentMethod } from '@/lib/zod/schemas-types';
 import { IoClose } from 'react-icons/io5';
 
 export type TDatePickerProps = {

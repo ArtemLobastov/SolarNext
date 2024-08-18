@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { ProductSold } from './salesDB';
 //lead form schema
 export const leadFormSchema = z.object({
   firstName: z

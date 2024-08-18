@@ -14,7 +14,10 @@ import {
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { TJobRegisterFormSchema, jobRegisterFormSchema } from '@/lib/types';
+import {
+  TJobRegisterFormSchema,
+  jobRegisterFormSchema,
+} from '@/lib/zod/schemas-types';
 import {
   Form,
   FormControl,

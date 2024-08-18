@@ -27,12 +27,10 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useEffect, useRef, useState } from 'react';
-import { ProductSold } from '@/lib/salesDB';
-import AddSoldProductForm from './SoldProducts';
 import SoldProducts from './SoldProducts';
 import { ActionResult, addSaleAction } from '@/lib/actions';
 import { useFormState } from 'react-dom';
-import { addSaleFormSchema, TAddSaleFormSchema } from '@/lib/types';
+import { addSaleFormSchema, TAddSaleFormSchema } from '@/lib/zod/schemas-types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from '@/components/ui/use-toast';
 

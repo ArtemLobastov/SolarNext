@@ -3,7 +3,7 @@ import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { getFormDataAction, ActionResult } from '@/lib/actions';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { TleadFormSchema, leadFormSchema } from '@/lib/types';
+import { TleadFormSchema, leadFormSchema } from '@/lib/zod/schemas-types';
 import { Loader2 } from 'lucide-react';
 import {
   Form,
