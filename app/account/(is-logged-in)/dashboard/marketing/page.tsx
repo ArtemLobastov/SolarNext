@@ -27,7 +27,7 @@ export default async function MarketingPage() {
           </li>
         ))}
       </ul>
-      <form className="grid gap-5" action={addToDo}>
+      <form className="grid gap-6" action={addToDo}>
         <label>Title</label>
         <input type="text" name="title" />
         <label>Description</label>
