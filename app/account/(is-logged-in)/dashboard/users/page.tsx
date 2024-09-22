@@ -29,9 +29,9 @@ export default function UsersPage() {
   //   setNewUser(user);
   //   setShowAddUser(true);
   // };
-  const handleDeleteUser = (userId: number | undefined) => {
-    setUsers(users.filter((user) => user.id !== userId));
-  };
+  // const handleDeleteUser = (userId: number | undefined) => {
+  //   setUsers(users.filter((user) => user.id !== userId));
+  // };
   return (
     <>
       {showAddUser && <CreateUser setShowAddUser={setShowAddUser} />}

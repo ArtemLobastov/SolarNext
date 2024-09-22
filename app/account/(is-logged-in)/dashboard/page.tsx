@@ -27,7 +27,6 @@ export default function DashboardPage() {
       <InstallersPieChartVidget />
       <DataTableStock />
       <FunnelCard />
-
       <SalesLineChart />
     </main>
   );
