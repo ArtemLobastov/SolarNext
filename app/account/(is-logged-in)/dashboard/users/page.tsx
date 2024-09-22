@@ -7,33 +7,6 @@ import UserList from '@/components/account/users/UserList';
 import EditUser from '@/components/account/users/EditUser';
 
 export default function UsersPage() {
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john@example.com',
-      role: 'Admin',
-    },
-    {
-      id: 2,
-      name: 'Jane Smith',
-      email: 'jane@example.com',
-      role: 'Manager',
-    },
-    {
-      id: 3,
-      name: 'Bob Johnson',
-      email: 'bob@example.com',
-      role: 'Installer',
-    },
-    {
-      id: 4,
-      name: 'Dakota Jonson',
-      email: 'dakota@example.com',
-      role: 'Agent',
-    },
-  ]);
-
   const [showAddUser, setShowAddUser] = useState(false);
   const [showEditUser, setShowEditUser] = useState(true);
   const [activeUserId, setActiveUserId] = useState(1);

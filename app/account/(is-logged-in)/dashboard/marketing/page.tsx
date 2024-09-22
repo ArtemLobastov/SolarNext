@@ -4,11 +4,9 @@ import { BsTools } from 'react-icons/bs';
 import prisma from '@/lib/db';
 import { ImRadioChecked, ImRadioUnchecked } from 'react-icons/im';
 import { addToDo } from './toDosPrisma/addTodoAction';
-import { unstable_cache } from 'next/cache';
 
 export default async function MarketingPage() {
-  const getCachedToDos = unstable_cache(() => prisma.toDo.findMany({}));
-  const toDos = await getCachedToDos();
+  const toDos = await prisma.toDo.findMany({});
   const toDosCount = await prisma.toDo.count();
   return (
     <div className="flex-col flex items-center justify-center gap-3 mt-10">

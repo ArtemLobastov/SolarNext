@@ -11,72 +11,60 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
-model Role {
-  id    String @id @default(uuid())
-  name  String
-  users User[]
+model ProductCategory {
+  id       Int       @id @default(autoincrement())
+  name     String
+  products Product[]
 }
 
-model ProductCategory {
-  id       String    @id @default(uuid())
+model ProductStatus {
+  id       Int       @id @default(autoincrement())
   name     String
   products Product[]
 }
 
 model Product {
-  id           String            @id @default(uuid())
-  name         String
-  description  String
-  imagePath    String
-  category     ProductCategory[]
-  categoryName String
-  price        Float?
-  quantity     Int
-  status       String
-  notes        String?
-  createdAt    DateTime          @default(now())
-  updatedAt    DateTime          @updatedAt
-  sales        Sale[]
+  id                Int             @id @default(autoincrement())
+  name              String          @unique
+  description       String?
+  imagePath         String?
+  category          ProductCategory @relation(fields: [productCategoryId], references: [id])
+  productCategoryId Int
+  price             Float
+  quantity          Int
+  status            ProductStatus   @relation(fields: [productStatusId], references: [id])
+  productStatusId   Int
+  notes             String?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+}
+
+model UserRole {
+  id    Int    @id @default(autoincrement())
+  name  String
+  users User[]
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
+  id        Int      @id @default(autoincrement())
+  firstName String
+  lastName  String
   phone     String
-  role      Role     @relation(fields: [roleId], references: [id])
-  roleId    String
-  activated Boolean  @default(false)
+  role      UserRole @relation(fields: [roleId], references: [id])
+  roleId    Int
+  activated Boolean  @default(true)
   avatarSrc String?
   email     String   @unique
   password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Installer {
-  id        String   @id @default(uuid())
-  name      String
-  phone     String
-  email     String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  jobs      Job[]
-}
-
-model Agent {
-  id        String   @id @default(uuid())
-  name      String
-  phone     String
-  email     String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   sales     Sale[]
-  jobs      Job[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-model Client {
-  id        String   @id @default(uuid())
-  name      String
+model Customer {
+  id        Int      @id @default(autoincrement())
+  firstName String
+  lastName  String
   phone     String
   email     String
   address   String
@@ -84,55 +72,47 @@ model Client {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   sales     Sale[]
-  jobs      Job[]
+  Job       Job[]
 }
 
+//TODO refactor: add SoldProduct model and dependencies
 model Sale {
-  id           String    @id @default(uuid())
+  id           Int      @id @default(autoincrement())
   status       String
-  client       Client    @relation(fields: [clientId], references: [id])
-  clientId     String
-  agent        Agent     @relation(fields: [agentId], references: [id])
-  agentId      String
-  productsSold Product[]
+  customer     Customer @relation(fields: [customerId], references: [id])
+  customerId   Int
+  agent        User?    @relation(fields: [agentId], references: [id])
+  agentId      Int?
+  soldProducts String
   totalPrice   Float
   notes        String?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model Job {
-  id               String    @id @default(uuid())
-  client           Client    @relation(fields: [clientId], references: [id])
-  clientId         String
-  agent            Agent     @relation(fields: [agentId], references: [id])
-  agentId          String
-  installer        Installer @relation(fields: [installerId], references: [id])
-  installerId      String
+  id               Int      @id @default(autoincrement())
+  customer         Customer @relation(fields: [customerId], references: [id])
+  customerId       Int
+  installerId      Int?
   jobType          String
   description      String
   location         String
   jobDate          DateTime
   assignee         String
   status           String
-  remainingBalance Float
+  remainingBalance Float?
   notes            String?
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }
 
+/////////////////////////////////////
 model ToDo {
   id          String   @id @default(uuid())
-  title       String   @unique
+  title       String
   description String
   completed   Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-}
-
-model FamilyMember {
-  id        String   @id @default(uuid())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
