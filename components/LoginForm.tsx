@@ -9,7 +9,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { toast } from './ui/use-toast';
+//import { toast } from './ui/use-toast';
+import { toast } from 'sonner';
 import { Button } from './ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from './ui/input';
@@ -41,25 +42,16 @@ export default function LoginForm() {
         new FormData(formRef.current!)
       );
       if (result.message === 'Success') {
-        toast({
-          title: 'Success',
-          variant: 'success',
-          description: 'Redirecting...',
-          duration: 2000,
-        });
+        toast.success('Success');
         form.reset();
         router.push('/account/dashboard');
       } else {
-        toast({
-          variant: 'destructive',
-          title: 'Error',
+        toast.error('Error', {
           description: result.message,
         });
       }
     } catch (error) {
-      toast({
-        variant: 'destructive',
-        title: 'Submission error',
+      toast.error('Submission error', {
         description: 'An unexpected error occurred. Please try again later.',
       });
     } finally {
@@ -115,9 +107,19 @@ export default function LoginForm() {
           className="w-full"
           disabled={isPending}
         >
-          {!isPending ? 'Login' : <Loader2 className=" animate-spin" />}
+          {!isPending ? 'Sign in' : <Loader2 className=" animate-spin" />}
         </Button>
       </form>
+      <Button
+        variant="outline"
+        onClick={() =>
+          toast('Event has been created', {
+            description: 'Sunday, December 03, 2023 at 9:00 AM',
+          })
+        }
+      >
+        Show Toast
+      </Button>
     </Form>
   );
 }

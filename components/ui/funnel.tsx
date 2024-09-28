@@ -15,20 +15,19 @@ const MyResponsiveFunnel = (props: any) => {
       margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
       colors={{ scheme: 'greens' }}
       theme={{
-        background: '#f1f1f1',
         tooltip: {
           chip: {
             borderRadius: '9999px',
           },
           container: {
-            background: '#f0f0f0',
-            color: '#272727',
+            background: 'grey',
+            color: 'white',
             fontSize: 12,
           },
         },
         grid: {
           line: {
-            stroke: '#181818',
+            stroke: '#a8a7a7',
           },
         },
       }}
@@ -82,7 +81,7 @@ export default function FunnelCard() {
         <CardDescription>Lead to Deposit for last 3 months</CardDescription>
       </CardHeader>
       <CardContent className="w-full h-full grow ">
-        <MyResponsiveFunnel data={data} className="" />
+        <MyResponsiveFunnel data={data} />
       </CardContent>
     </Card>
   );

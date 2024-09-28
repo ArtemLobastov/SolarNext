@@ -1,7 +1,7 @@
 'use server';
 import { Prisma, PrismaClient } from '@prisma/client';
 import { string } from 'zod';
-type User = Omit<Prisma.UserCreateInput, 'role'> & {
+export type User = Omit<Prisma.UserCreateInput, 'role'> & {
   roleId: number;
 };
 type Sale = Omit<Prisma.SaleCreateInput, 'customer' | 'agent'> & {

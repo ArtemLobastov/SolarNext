@@ -46,21 +46,23 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-// { clientsListData as data, TClientPersonalInfo } from '@/lib/clientsDB';
-import { IUser, users as data } from '@/lib/usersDB';
+//import { IUser, users as data } from '@/lib/usersDB';
+
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import SaveXmlBtn from '@/components/ui/save-xml-btn';
-export const columns: ColumnDef<IUser>[] = [
+import { User } from '@/prisma/seed';
+export const columns: ColumnDef<User>[] = [
   {
     accessorKey: 'avatarSrc',
     header: '',
     cell: ({ row }) => {
-      const userName: string = row.getValue('name');
+      const userName: string =
+        row.getValue('firstName') + ' ' + row.getValue('lastName');
       const userInitials = userName
         .split(' ')
         .map((word) => word.slice(0, 1))
-        .join(' ');
+        .join('');
       return (
         <Avatar>
           <AvatarImage src={row.getValue('avatarSrc')} alt="user avatar" />
@@ -70,9 +72,20 @@ export const columns: ColumnDef<IUser>[] = [
     },
   },
   {
-    accessorKey: 'name',
+    accessorKey: 'firstName',
     header: 'Name',
-    cell: ({ row }) => <div className="capitalize">{row.getValue('name')}</div>,
+    cell: ({ row }) => (
+      <div className="capitalize">
+        {row.getValue('firstName') + ' ' + row.getValue('lastName')}
+      </div>
+    ),
+  },
+  {
+    accessorKey: 'lastName',
+    header: 'Last Name',
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue('lastName')}</div>
+    ),
   },
   {
     accessorKey: 'role',
@@ -100,9 +113,8 @@ export const columns: ColumnDef<IUser>[] = [
     header: 'Phone',
     cell: ({ row }) => <div className="">{row.getValue('phone')}</div>,
   },
-
   {
-    accessorKey: 'registered',
+    accessorKey: 'createdAt',
     header: ({ column }) => {
       return (
         <Button
@@ -115,7 +127,7 @@ export const columns: ColumnDef<IUser>[] = [
       );
     },
     cell: ({ table, row }) => (
-      <div className="text-xs">{row.getValue('registered')}</div>
+      <div className="text-xs">{row.getValue('createdAt')}</div>
     ),
   },
   {
@@ -210,8 +222,8 @@ export function FilterOptionsDropdownMenu({
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuRadioGroup value={filter} onValueChange={setFilter}>
-          <DropdownMenuRadioItem value="name" onClick={() => onReset()}>
-            Name
+          <DropdownMenuRadioItem value="firstName" onClick={() => onReset()}>
+            firstName
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="email" onClick={() => onReset()}>
             Email
@@ -223,14 +235,8 @@ export function FilterOptionsDropdownMenu({
 }
 
 //TODO change state to USER
-export default function UserList({
-  setShowAddUser,
-  showAddUser,
-}: {
-  setShowAddUser: (value: boolean | ((prevVar: boolean) => boolean)) => void;
-  showAddUser: boolean;
-}) {
-  const [filter, setFilter] = React.useState<string>('name');
+export default function UserList({ data }: any) {
+  const [filter, setFilter] = React.useState<string>('firstName');
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -239,6 +245,7 @@ export default function UserList({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  console.log(data[1]['createdAt'].toLocaleString());
 
   const table = useReactTable({
     data,
@@ -262,7 +269,7 @@ export default function UserList({
   });
   function filterChangeResetHandler(): void {
     table.getColumn('email')?.setFilterValue('');
-    table.getColumn('name')?.setFilterValue('');
+    table.getColumn('firstName')?.setFilterValue('');
   }
   return (
     <div className="w-full">
@@ -281,18 +288,15 @@ export default function UserList({
           setFilter={setFilter}
           onReset={filterChangeResetHandler}
         />
-        {!showAddUser && (
-          <Button
-            variant="outline"
-            className="mr-auto"
-            // TODO change to user
-            onClick={() => {
-              setShowAddUser(true);
-            }}
-          >
-            <Plus className=" h-4 w-4 mr-2" /> Add User
-          </Button>
-        )}
+
+        <Button
+          variant="outline"
+          className="mr-auto"
+          // TODO change to user
+        >
+          <Plus className=" h-4 w-4 mr-2" /> Add User
+        </Button>
+
         <SaveXmlBtn table={table} fileName={'user-list'} />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

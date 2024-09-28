@@ -9,6 +9,7 @@ import {
   userFormSchema,
 } from './zod/schemas-types';
 import { ProductSold, SaleStatus } from './salesDB';
+import prisma from './db';
 
 export interface ActionResult {
   message: string;
