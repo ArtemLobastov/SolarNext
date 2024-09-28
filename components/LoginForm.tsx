@@ -110,16 +110,6 @@ export default function LoginForm() {
           {!isPending ? 'Sign in' : <Loader2 className=" animate-spin" />}
         </Button>
       </form>
-      <Button
-        variant="outline"
-        onClick={() =>
-          toast('Event has been created', {
-            description: 'Sunday, December 03, 2023 at 9:00 AM',
-          })
-        }
-      >
-        Show Toast
-      </Button>
     </Form>
   );
 }
